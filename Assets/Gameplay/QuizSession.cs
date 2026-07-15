@@ -1,12 +1,14 @@
 public class QuizSession
 {
     private readonly QuizGenerator generator;
+    private readonly HeaderView headerView;
 
     public QuizQuestion CurrentQuestion { get; private set; }
 
-    public QuizSession(PlayerDatabase database)
+    public QuizSession(PlayerDatabase database, HeaderView headerView)
     {
         generator = new QuizGenerator(database);
+        this.headerView = headerView;
     }
 
     public QuizQuestion NextQuestion()
@@ -21,10 +23,14 @@ public class QuizSession
         if (!CurrentQuestion.CanRevealClub)
             return false;
 
-        if (!GameManager.Instance.SpendCoins(50))
+        if (!GameManager.Instance.Progress.SpendCoins(50))
+        {
+            headerView.Show(GameManager.Instance.Progress);
             return false;
+        }
 
         CurrentQuestion.RevealRandomClub();
+        headerView.Show(GameManager.Instance.Progress);
 
         return true;
     }
@@ -35,11 +41,11 @@ public class QuizSession
 
         if (correct)
         {
-            GameManager.Instance.WinCoins(20);
+            GameManager.Instance.Progress.AddCoins(20);
         }
         else
         {
-            GameManager.Instance.LoseLife();
+            GameManager.Instance.Progress.LoseLife();
         }
 
         return correct;

@@ -14,24 +14,21 @@ public class QuizController : MonoBehaviour
     [SerializeField]
     private Button hintButton;
 
-    [SerializeField]
-    private TextMeshProUGUI coinsText;
-
-    [SerializeField]
-    private TextMeshProUGUI livesText;
+    [SerializeField] 
+    private HeaderView headerView;
 
     private QuizQuestion _currentQuestion;
     private QuizSession _quizSession;
 
     private void Start()
     {
-        _quizSession = new QuizSession(GameManager.Instance.PlayerDatabase);
-        NextQuestion();
-        UpdateHeader();
+        _quizSession = new QuizSession(GameManager.Instance.PlayerDatabase, headerView);
+        RefreshUI();
+        RefreshHeader();
         hintButton.onClick.AddListener(OnHintClicked);
     }
 
-    private void NextQuestion()
+    private void RefreshUI()
     {
         _currentQuestion = _quizSession.NextQuestion();
 
@@ -51,6 +48,8 @@ public class QuizController : MonoBehaviour
         {
             careerPathView.ShowQuestion(_currentQuestion);
         }
+
+        
     }
 
     private void OnAnswerClicked(AnswerButtonView button)
@@ -67,11 +66,11 @@ public class QuizController : MonoBehaviour
             answerViews[_currentQuestion.CorrectIndex].SetCorrect();
         }
 
-        UpdateHeader();
+        RefreshHeader();
 
         DisableAnswers();
 
-        Invoke(nameof(NextQuestion), 1.5f);
+        Invoke(nameof(RefreshUI), 1.5f);
     }
 
     private void DisableAnswers()
@@ -86,12 +85,11 @@ public class QuizController : MonoBehaviour
 
         careerPathView.ShowQuestion(_currentQuestion);
 
-        UpdateHeader();
+        RefreshHeader();
     }
 
-    private void UpdateHeader()
+    private void RefreshHeader()
     {
-        coinsText.text = GameManager.Instance.Coins.ToString();
-        livesText.text = GameManager.Instance.Lives.ToString();
+        headerView.Show(GameManager.Instance.Progress);
     }
 }
