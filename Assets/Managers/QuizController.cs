@@ -9,7 +9,7 @@ public class QuizController : MonoBehaviour
     private CareerPathView careerPathView;
 
     [SerializeField]
-    private AnswerButtonView[] answerViews;
+    private AnswerPanelView answerPanelView;
 
     [SerializeField]
     private Button hintButton;
@@ -24,7 +24,6 @@ public class QuizController : MonoBehaviour
     {
         _quizSession = new QuizSession(GameManager.Instance.PlayerDatabase, headerView);
         RefreshUI();
-        RefreshHeader();
         hintButton.onClick.AddListener(OnHintClicked);
     }
 
@@ -32,24 +31,25 @@ public class QuizController : MonoBehaviour
     {
         _currentQuestion = _quizSession.NextQuestion();
 
-        for (int i = 0; i < _currentQuestion.Options.Count; i++)
-        {
-            answerViews[i].SetInteractable(true);
-            answerViews[i].ResetColor();
-            
-            answerViews[i].Clicked -= OnAnswerClicked;
-            answerViews[i].Clicked += OnAnswerClicked;
+        RefreshAnswers();
+        ShowQuestion();
+        RefreshHeader();
+    }
 
-            answerViews[i].Show(_currentQuestion.Options[i]);
-        }
-
+    private void ShowQuestion()
+    {
         // Use the serialized field so the compiler doesn't warn it's unused
         if (careerPathView != null)
         {
             careerPathView.ShowQuestion(_currentQuestion);
         }
+    }
 
-        
+    private void RefreshAnswers()
+    {
+        answerPanelView.Show(_currentQuestion);
+        answerPanelView.SetInteractable(true);
+        answerPanelView.Subscribe(OnAnswerClicked);
     }
 
     private void OnAnswerClicked(AnswerButtonView button)
@@ -63,7 +63,7 @@ public class QuizController : MonoBehaviour
         else
         {
             button.SetWrong();
-            answerViews[_currentQuestion.CorrectIndex].SetCorrect();
+            answerPanelView.AnswerViews[_currentQuestion.CorrectIndex].SetCorrect();
         }
 
         RefreshHeader();
@@ -75,8 +75,7 @@ public class QuizController : MonoBehaviour
 
     private void DisableAnswers()
     {
-        foreach (var answer in answerViews)
-            answer.SetInteractable(false);
+        answerPanelView.SetInteractable(false);
     }
 
     private void OnHintClicked()
