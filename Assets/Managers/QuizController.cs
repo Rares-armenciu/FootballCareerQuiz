@@ -56,15 +56,7 @@ public class QuizController : MonoBehaviour
     {
         bool correct = _quizSession.SubmitAnswer(button.Player);
 
-        if(correct)
-        {
-            button.SetCorrect();
-        }
-        else
-        {
-            button.SetWrong();
-            answerPanelView.AnswerViews[_currentQuestion.CorrectIndex].SetCorrect();
-        }
+        answerPanelView.ShowAnswerResult(button, correct, _currentQuestion.CorrectIndex);
 
         RefreshHeader();
 

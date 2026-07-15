@@ -41,7 +41,8 @@ public class QuizSession
 
         if (correct)
         {
-            GameManager.Instance.Progress.AddCoins(20);
+            GameManager.Instance.Progress.AddCoins(25);
+            GameManager.Instance.Progress.LevelUp();
         }
         else
         {

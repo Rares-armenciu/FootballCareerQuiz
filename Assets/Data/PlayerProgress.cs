@@ -24,4 +24,9 @@ public class PlayerProgress
     {
         Lives--;
     }
+
+    public void LevelUp()
+    {
+        CurrentLevel++;
+    }
 }
