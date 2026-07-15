@@ -17,6 +17,9 @@ public class QuizController : MonoBehaviour
     [SerializeField] 
     private HeaderView headerView;
 
+    [SerializeField]
+    private GameOverView gameOverView;
+
     private QuizQuestion _currentQuestion;
     private QuizSession _quizSession;
 
@@ -25,6 +28,7 @@ public class QuizController : MonoBehaviour
         _quizSession = new QuizSession(GameManager.Instance.PlayerDatabase, headerView);
         RefreshUI();
         hintButton.onClick.AddListener(OnHintClicked);
+        gameOverView.Hide();
     }
 
     private void RefreshUI()
@@ -82,5 +86,17 @@ public class QuizController : MonoBehaviour
     private void RefreshHeader()
     {
         headerView.Show(GameManager.Instance.Progress);
+        CheckGameOver();
+    }
+
+    private void CheckGameOver()
+    {
+        if (GameManager.Instance.Progress.Lives <= 0)
+        {
+            DisableAnswers();
+            hintButton.interactable = false;
+
+            gameOverView.Show(GameManager.Instance.Progress);
+        }
     }
 }
