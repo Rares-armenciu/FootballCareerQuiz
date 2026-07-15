@@ -1061,8 +1061,7 @@ MonoBehaviour:
   - {fileID: 245041987}
   - {fileID: 987290258}
   hintButton: {fileID: 475431552}
-  coinsText: {fileID: 1582541328}
-  livesText: {fileID: 1864548013}
+  headerView: {fileID: 1784105699}
 --- !u!4 &600992471
 Transform:
   m_ObjectHideFlags: 0

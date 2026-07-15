@@ -23,6 +23,6 @@ public class GameManager : MonoBehaviour
 
         PlayerDatabase = new PlayerDatabase();
 
-        Debug.Log("GameManager created");
+        Progress = new PlayerProgress();
     }
 }
