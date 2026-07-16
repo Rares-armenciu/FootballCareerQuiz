@@ -46,7 +46,6 @@ public class NoLivesView : MonoBehaviour
 
             timeLeftText.text =
                 $"{remaining.Minutes:00}:{remaining.Seconds:00}";
-            Debug.Log($"Time remaining: {timeLeftText.text}");
             yield return new WaitForSeconds(1f);
         }
     }

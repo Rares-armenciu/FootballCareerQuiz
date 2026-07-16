@@ -28,7 +28,8 @@ public class QuizController : MonoBehaviour
         _quizSession = new QuizSession(new QuizGenerator(GameManager.Instance.PlayerDatabase), 
             GameManager.Instance.LifeService, 
             GameManager.Instance.CoinsService, 
-            GameManager.Instance.ProgressionService);
+            GameManager.Instance.ProgressionService,
+            GameManager.Instance.StatisticsService);
 
         NextQuestion();
         hintButton.onClick.AddListener(OnHintClicked);

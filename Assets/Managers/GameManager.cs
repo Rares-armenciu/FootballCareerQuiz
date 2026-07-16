@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
 
     public SaveService SaveService { get; private set; }
 
+    public PlayerStatistics Statistics { get; private set; }
+
+    public StatisticsService StatisticsService { get; private set; }
+
     private void Awake()
     {
         if (Instance != null)
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
         LifeService = new LifeService(Progress);
         CoinsService = new CoinsService(Progress);
         ProgressionService = new ProgressionService(Progress);
+        Statistics = new PlayerStatistics();
+        StatisticsService = new StatisticsService(Statistics);
         StartCoroutine(RefreshLoop());
     }
 

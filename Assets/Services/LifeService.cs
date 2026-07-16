@@ -69,13 +69,11 @@ public class LifeService
             return;
         }
 
-        while(DateTime.Now >= _playerProgress.NextLifeTime)
+        while(_playerProgress.Lives < PlayerProgress.MaxLives && DateTime.Now >= _playerProgress.NextLifeTime)
         {
             AddLife();
-            if (_playerProgress.Lives < PlayerProgress.MaxLives)
-            {
-                _playerProgress.NextLifeTime = _playerProgress.NextLifeTime.AddMinutes(MinutesPerLife);
-            }
+
+            _playerProgress.NextLifeTime = _playerProgress.NextLifeTime.AddMinutes(MinutesPerLife);
         }
 
         LivesChanged?.Invoke();

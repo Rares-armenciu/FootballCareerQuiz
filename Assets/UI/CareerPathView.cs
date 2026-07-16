@@ -11,9 +11,6 @@ public class CareerPathView : MonoBehaviour
 
     public void ShowQuestion(QuizQuestion question)
     {
-        Debug.Log("ShowQuestion called");
-        Debug.Log(question.CorrectPlayer.Clubs.Count);
-
         foreach (Transform child in container)
         {
             Destroy(child.gameObject);
@@ -23,8 +20,6 @@ public class CareerPathView : MonoBehaviour
         {
             CareerClub club = question.CorrectPlayer.Clubs[i];
 
-            Debug.Log("Creating entry for " + club.Name);
-            
             ClubEntryView entry =
                 Instantiate(clubEntryPrefab, container);
 
