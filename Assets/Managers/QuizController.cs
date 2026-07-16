@@ -18,23 +18,32 @@ public class QuizController : MonoBehaviour
     private HeaderView headerView;
 
     [SerializeField]
-    private GameOverView gameOverView;
+    private NoLivesView gameOverView;
 
     private QuizQuestion _currentQuestion;
     private QuizSession _quizSession;
 
     private void Start()
     {
-        _quizSession = new QuizSession(GameManager.Instance.PlayerDatabase, headerView);
-        RefreshUI();
+        _quizSession = new QuizSession(new QuizGenerator(GameManager.Instance.PlayerDatabase), 
+            GameManager.Instance.LifeService, 
+            GameManager.Instance.CoinsService, 
+            GameManager.Instance.ProgressionService);
+
+        NextQuestion();
         hintButton.onClick.AddListener(OnHintClicked);
         gameOverView.Hide();
     }
 
-    private void RefreshUI()
+    private void NextQuestion()
     {
         _currentQuestion = _quizSession.NextQuestion();
 
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
         RefreshAnswers();
         ShowQuestion();
         RefreshHeader();
@@ -66,7 +75,7 @@ public class QuizController : MonoBehaviour
 
         DisableAnswers();
 
-        Invoke(nameof(RefreshUI), 1.5f);
+        Invoke(nameof(NextQuestion), 1.5f);
     }
 
     private void DisableAnswers()
@@ -76,11 +85,11 @@ public class QuizController : MonoBehaviour
 
     private void OnHintClicked()
     {
-        _quizSession.RevealHint();
-
-        careerPathView.ShowQuestion(_currentQuestion);
-
-        RefreshHeader();
+        if (_quizSession.RevealHint())
+        {
+            RefreshHeader();
+            careerPathView.ShowQuestion(_currentQuestion);
+        }
     }
 
     private void RefreshHeader()

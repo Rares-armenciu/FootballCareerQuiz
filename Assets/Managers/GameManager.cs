@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
 
     public PlayerProgress Progress { get; private set; }
 
+    public LifeService LifeService { get; private set; }
+
+    public CoinsService CoinsService { get; private set; }
+
+    public ProgressionService ProgressionService { get; private set; }
+
     private void Awake()
     {
         if (Instance != null)
@@ -22,7 +28,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         PlayerDatabase = new PlayerDatabase();
-
         Progress = new PlayerProgress();
+        LifeService = new LifeService(Progress);
+        CoinsService = new CoinsService(Progress);
+        ProgressionService = new ProgressionService(Progress);
     }
 }

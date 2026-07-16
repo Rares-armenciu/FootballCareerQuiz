@@ -1,19 +1,23 @@
 public class QuizSession
 {
-    private readonly QuizGenerator generator;
-    private readonly HeaderView headerView;
+    private readonly QuizGenerator _quizGenerator;
+    private readonly LifeService _lifeService;
+    private readonly CoinsService _coinsService;
+    private readonly ProgressionService _progressionService;
 
     public QuizQuestion CurrentQuestion { get; private set; }
 
-    public QuizSession(PlayerDatabase database, HeaderView headerView)
+    public QuizSession(QuizGenerator generator, LifeService lifeService, CoinsService coinsService, ProgressionService progressionService)
     {
-        generator = new QuizGenerator(database);
-        this.headerView = headerView;
+        _quizGenerator = generator;
+        _lifeService = lifeService;
+        _coinsService = coinsService;
+        _progressionService = progressionService;
     }
 
     public QuizQuestion NextQuestion()
     {
-        CurrentQuestion = generator.Generate();
+        CurrentQuestion = _quizGenerator.Generate();
 
         return CurrentQuestion;
     }
@@ -23,14 +27,12 @@ public class QuizSession
         if (!CurrentQuestion.CanRevealClub)
             return false;
 
-        if (!GameManager.Instance.Progress.SpendCoins(50))
+        if (!_coinsService.SpendCoins(50))
         {
-            headerView.Show(GameManager.Instance.Progress);
             return false;
         }
 
         CurrentQuestion.RevealRandomClub();
-        headerView.Show(GameManager.Instance.Progress);
 
         return true;
     }
@@ -41,12 +43,12 @@ public class QuizSession
 
         if (correct)
         {
-            GameManager.Instance.Progress.AddCoins(25);
-            GameManager.Instance.Progress.LevelUp();
+            _coinsService.AddCoins(25);
+            _progressionService.LevelUp();
         }
         else
         {
-            GameManager.Instance.Progress.LoseLife();
+            _lifeService.SpendLife();
         }
 
         return correct;

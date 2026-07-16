@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class GameOverView : MonoBehaviour
+public class NoLivesView : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI levelText;
