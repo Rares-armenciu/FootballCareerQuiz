@@ -68,7 +68,7 @@ public class QuizController : MonoBehaviour
     private void OnAnswerClicked(AnswerButtonView button)
     {
         bool correct = _quizSession.SubmitAnswer(button.Player);
-
+        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress);
         answerPanelView.ShowAnswerResult(button, correct, _currentQuestion.CorrectIndex);
 
         RefreshHeader();
@@ -105,7 +105,17 @@ public class QuizController : MonoBehaviour
             DisableAnswers();
             hintButton.interactable = false;
 
-            gameOverView.Show(GameManager.Instance.Progress);
+            gameOverView.Show(GameManager.Instance.Progress, GameManager.Instance.LifeService);
         }
+    }
+
+    public void OnEnable()
+    {
+        GameManager.Instance.LifeService.LivesChanged += RefreshHeader;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.LifeService.LivesChanged -= RefreshHeader;
     }
 }

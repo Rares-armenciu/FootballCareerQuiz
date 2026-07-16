@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public ProgressionService ProgressionService { get; private set; }
 
+    public SaveService SaveService { get; private set; }
+
     private void Awake()
     {
         if (Instance != null)
@@ -28,9 +31,29 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         PlayerDatabase = new PlayerDatabase();
-        Progress = new PlayerProgress();
+        SaveService = new SaveService();
+        Progress = SaveService.Load();
         LifeService = new LifeService(Progress);
         CoinsService = new CoinsService(Progress);
         ProgressionService = new ProgressionService(Progress);
+        StartCoroutine(RefreshLoop());
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus)
+        {
+            LifeService.RefreshLives();
+        }
+    }
+
+    private IEnumerator RefreshLoop()
+    {
+        while (true)
+        {
+            LifeService.RefreshLives();
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

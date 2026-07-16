@@ -1,3 +1,5 @@
+using System;
+
 public class QuizSession
 {
     private readonly QuizGenerator _quizGenerator;

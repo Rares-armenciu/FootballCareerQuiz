@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ public class HeaderView : MonoBehaviour
 
     public void Show(PlayerProgress session)
     {
-        coinsText.text = GameManager.Instance.Progress.Coins.ToString();
-        livesText.text = GameManager.Instance.Progress.Lives.ToString();
+        coinsText.text = session.Coins.ToString();
+        livesText.text = session.Lives.ToString();
 
         // Temporary
         levelText.text = "Level 1";

@@ -1,8 +1,25 @@
+using System;
+
 public class PlayerProgress
 {
-    public int Coins { get; set; } = 500;
+    public const int MaxLives = 5;
+    public int Coins { get; set; }
 
-    public int Lives { get; set; } = 5;
+    public int Lives { get; set; } =  MaxLives;
 
-    public int CurrentLevel { get; set; } = 1;
+    public int CurrentLevel { get; set; }
+
+    public DateTime NextLifeTime { get; set; }
+
+    public void Restore(
+        int coins,
+        int lives,
+        int currentLevel,
+        DateTime nextLifeTime)
+    {
+        Coins = coins;
+        Lives = lives;
+        CurrentLevel = currentLevel;
+        NextLifeTime = nextLifeTime;
+    }
 }
