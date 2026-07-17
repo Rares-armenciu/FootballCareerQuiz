@@ -41,4 +41,9 @@ public class PlayerStatistics
     {
         HintsUsed++;
     }
+
+    public float AccuracyPercentage()
+    {
+        return Accuracy * 100;
+    }
 }
