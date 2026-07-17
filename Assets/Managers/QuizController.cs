@@ -69,7 +69,7 @@ public class QuizController : MonoBehaviour
     private void OnAnswerClicked(AnswerButtonView button)
     {
         bool correct = _quizSession.SubmitAnswer(button.Player);
-        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress);
+        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics);
         answerPanelView.ShowAnswerResult(button, correct, _currentQuestion.CorrectIndex);
 
         RefreshHeader();

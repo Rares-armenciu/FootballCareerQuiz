@@ -36,11 +36,12 @@ public class GameManager : MonoBehaviour
 
         PlayerDatabase = new PlayerDatabase();
         SaveService = new SaveService();
-        Progress = SaveService.Load();
+        var loadData = SaveService.Load();
+        Progress = loadData.Item1;
+        Statistics = loadData.Item2;
         LifeService = new LifeService(Progress);
         CoinsService = new CoinsService(Progress);
         ProgressionService = new ProgressionService(Progress);
-        Statistics = new PlayerStatistics();
         StatisticsService = new StatisticsService(Statistics);
         StartCoroutine(RefreshLoop());
     }

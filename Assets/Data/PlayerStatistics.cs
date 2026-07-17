@@ -20,6 +20,21 @@ public class PlayerStatistics
             ? 0
             : (float)CorrectAnswers / QuestionsAnswered;
 
+    public void Restore(
+        int questionsAnswered,
+        int correctAnswers,
+        int wrongAnswers,
+        int hintsUsed,
+        int longestStreak)
+    {
+        QuestionsAnswered = questionsAnswered;
+        CorrectAnswers = correctAnswers;
+        WrongAnswers = wrongAnswers;
+        HintsUsed = hintsUsed;
+        CurrentStreak = 0;
+        LongestStreak = longestStreak;
+    }
+
     public void RecordCorrectAnswer()
     {
         QuestionsAnswered++;
@@ -42,8 +57,8 @@ public class PlayerStatistics
         HintsUsed++;
     }
 
-    public float AccuracyPercentage()
+    public int AccuracyPercentage()
     {
-        return Accuracy * 100;
+        return (int)(Accuracy * 100);
     }
 }
