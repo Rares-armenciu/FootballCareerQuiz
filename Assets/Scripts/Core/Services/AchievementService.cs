@@ -25,6 +25,7 @@ public class AchievementService
 
     public void CheckAchievements()
     {
+        Debug.Log("Achievements checked 1");
         foreach (var achievement in AchievementDatabase.All)
         {
             if (_playerAchievements.IsUnlocked(achievement.Id))
@@ -39,14 +40,21 @@ public class AchievementService
 
     public void CheckAchievements(AchievementType type)
     {
+        Debug.Log("Achievements checked 2");
+
         foreach (var achievement in AchievementDatabase.All)
         {
+            Debug.Log(
+    $"{achievement.Name} | Type: {achievement.Type} | Target: {achievement.Target}");
+            Debug.Log("Correct Answers: " + _playerStatistics.CorrectAnswers);
             if (achievement.Type != type)
                 continue;
             if (_playerAchievements.IsUnlocked(achievement.Id))
                 continue;
             if (MeetsRequirement(achievement))
             {
+                Debug.Log("Achievements meets requirement");
+
                 Unlock(achievement);
             }
         }

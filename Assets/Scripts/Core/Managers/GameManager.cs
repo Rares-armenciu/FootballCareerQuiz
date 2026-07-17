@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private AchievementPopupView _achievementPopup;
-
     public static GameManager Instance { get; private set; }
 
     public PlayerDatabase PlayerDatabase { get; private set; }
@@ -51,7 +49,6 @@ public class GameManager : MonoBehaviour
         ProgressionService = new ProgressionService(Progress);
         AchievementService = new AchievementService(Achievements, Progress, Statistics, CoinsService);
         StatisticsService = new StatisticsService(Statistics, AchievementService);
-        AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
         StartCoroutine(RefreshLoop());
     }
 
@@ -71,11 +68,5 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (AchievementService != null)
-            AchievementService.AchievementUnlocked -= _achievementPopup.Enqueue;
     }
 }

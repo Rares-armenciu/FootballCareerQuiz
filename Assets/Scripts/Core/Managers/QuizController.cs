@@ -20,6 +20,9 @@ public class QuizController : MonoBehaviour
     [SerializeField]
     private NoLivesView gameOverView;
 
+    [SerializeField] 
+    private AchievementPopupView _achievementPopup;
+
     private QuizQuestion _currentQuestion;
     private QuizSession _quizSession;
 
@@ -35,6 +38,7 @@ public class QuizController : MonoBehaviour
         NextQuestion();
         hintButton.onClick.AddListener(OnHintClicked);
         gameOverView.Hide();
+        GameManager.Instance.AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
     }
 
     private void NextQuestion()
@@ -119,5 +123,7 @@ public class QuizController : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.LifeService.LivesChanged -= RefreshHeader;
+        if (GameManager.Instance.AchievementService != null)
+            GameManager.Instance.AchievementService.AchievementUnlocked -= _achievementPopup.Enqueue;
     }
 }
