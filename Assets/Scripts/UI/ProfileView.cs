@@ -27,7 +27,7 @@ public class ProfileView : MonoBehaviour
 
         _accuracyRow.Set(
             "Accuracy",
-            $"{statistics.AccuracyPercentage().ToString():F1}%");
+            $"{statistics.AccuracyPercentage.ToString():F1}%");
 
         _longestStreakRow.Set(
             "Longest Streak",

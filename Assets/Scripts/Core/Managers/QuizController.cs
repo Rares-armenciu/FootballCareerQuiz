@@ -29,7 +29,8 @@ public class QuizController : MonoBehaviour
             GameManager.Instance.LifeService, 
             GameManager.Instance.CoinsService, 
             GameManager.Instance.ProgressionService,
-            GameManager.Instance.StatisticsService);
+            GameManager.Instance.StatisticsService,
+            GameManager.Instance.AchievementService);
 
         NextQuestion();
         hintButton.onClick.AddListener(OnHintClicked);
@@ -69,7 +70,7 @@ public class QuizController : MonoBehaviour
     private void OnAnswerClicked(AnswerButtonView button)
     {
         bool correct = _quizSession.SubmitAnswer(button.Player);
-        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics);
+        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics, GameManager.Instance.Achievements);
         answerPanelView.ShowAnswerResult(button, correct, _currentQuestion.CorrectIndex);
 
         RefreshHeader();

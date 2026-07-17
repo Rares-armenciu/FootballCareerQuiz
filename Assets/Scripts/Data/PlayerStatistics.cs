@@ -15,10 +15,10 @@ public class PlayerStatistics
 
     public int LongestStreak { get; private set; }
 
-    public float Accuracy =>
+    public float AccuracyPercentage =>
         QuestionsAnswered == 0
             ? 0
-            : (float)CorrectAnswers / QuestionsAnswered;
+            : CorrectAnswers * 100f/ QuestionsAnswered;
 
     public void Restore(
         int questionsAnswered,
@@ -55,10 +55,5 @@ public class PlayerStatistics
     public void UseHint()
     {
         HintsUsed++;
-    }
-
-    public int AccuracyPercentage()
-    {
-        return (int)(Accuracy * 100);
     }
 }

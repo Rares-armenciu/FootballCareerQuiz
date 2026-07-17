@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class SaveService
 {
-    private const string PlayerProgressKey = "PlayerProgress";
+    private const string PlayerProgressKey = "SaveData";
 
-    public void Save(PlayerProgress progress, PlayerStatistics statistics)
+    public void Save(PlayerProgress progress, PlayerStatistics statistics, PlayerAchievements achievements)
     {
         PlayerProgressSaveData progressData =
             new PlayerProgressSaveData
@@ -30,25 +30,20 @@ public class SaveService
         {
             Progress = progressData,
             Statistics = statsData,
+            Achievements = achievements.ToSaveData()
         };
 
         string json = JsonUtility.ToJson(saveData);
 
         PlayerPrefs.SetString(PlayerProgressKey, json);
         PlayerPrefs.Save();
-        Debug.Log("Questions Answered " + saveData.Statistics.QuestionsAnswered);
-        Debug.Log("Correct Answers " + saveData.Statistics.CorrectAnswers);
-        Debug.Log("Wrong Answers " + saveData.Statistics.WrongAnswers);
-        Debug.Log("Hints Used " + saveData.Statistics.HintsUsed);
-        Debug.Log("Longest Streak " + saveData.Statistics.LongestStreak);
-        Debug.Log("Has Key " + PlayerPrefs.HasKey(PlayerProgressKey));
     }
 
-    public (PlayerProgress, PlayerStatistics) Load()
+    public LoadData Load()
     {
         if (!PlayerPrefs.HasKey(PlayerProgressKey))
         {
-            return (new PlayerProgress(), new PlayerStatistics());
+            return new LoadData(new PlayerProgress(), new PlayerStatistics(), new PlayerAchievements());
         }
 
         string json = PlayerPrefs.GetString(PlayerProgressKey);
@@ -73,7 +68,9 @@ public class SaveService
             data.Statistics.HintsUsed,
             data.Statistics.LongestStreak);
 
+        PlayerAchievements achievements = new PlayerAchievements();
+        achievements.Load(data.Achievements);
 
-        return (progress, statistics);
+        return new LoadData(progress, statistics, achievements);
     }
 }
