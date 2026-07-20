@@ -6,6 +6,7 @@ public class AchievementDefinition
     public AchievementType Type { get; }
     public int Target { get; }
     public int RewardCoins { get; }
+    public AchievementIcon Icon { get; }
 
     public AchievementDefinition(
         string id,
@@ -13,7 +14,8 @@ public class AchievementDefinition
         string description,
         AchievementType type,
         int target,
-        int rewardCoins)
+        int rewardCoins,
+        AchievementIcon icon)
     {
         Id = id;
         Name = name;
@@ -21,5 +23,6 @@ public class AchievementDefinition
         Type = type;
         Target = target;
         RewardCoins = rewardCoins;
+        Icon = icon;
     }
 }

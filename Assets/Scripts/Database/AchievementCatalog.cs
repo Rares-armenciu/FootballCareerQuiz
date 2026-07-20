@@ -10,7 +10,8 @@ public static class AchievementDatabase
             "Answer your first question correctly.",
             AchievementType.CorrectAnswers,
             1,
-            50),
+            50,
+            AchievementIcon.Football),
 
         new AchievementDefinition(
             "quiz_master",
@@ -18,7 +19,8 @@ public static class AchievementDatabase
             "Answer 100 questions correctly.",
             AchievementType.CorrectAnswers,
             100,
-            500),
+            500,
+            AchievementIcon.Trophy),
 
         new AchievementDefinition(
             "student",
@@ -26,7 +28,8 @@ public static class AchievementDatabase
             "Answer 50 questions.",
             AchievementType.QuestionsAnswered,
             50,
-            100),
+            100,
+            AchievementIcon.Book),
 
         new AchievementDefinition(
             "on_fire",
@@ -34,6 +37,7 @@ public static class AchievementDatabase
             "Reach a streak of 10.",
             AchievementType.LongestStreak,
             10,
-            250),
+            250,
+            AchievementIcon.Fire),
     };
 }

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Gameplay\QuizSession.cs" />
     <Compile Include="Assets\Scripts\Data\FootballPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\UI\AchievementIconProvider.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\UI\HeaderView.cs" />
     <Compile Include="Assets\Scripts\Database\PlayerDatabase.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Data\AchievementType.cs" />
-    <Compile Include="Assets\Scripts\UI\MainMenuController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
@@ -88,10 +88,12 @@
     <Compile Include="Assets\Scripts\Core\Save\SaveData.cs" />
     <Compile Include="Assets\Scripts\Core\Services\StatisticsService.cs" />
     <Compile Include="Assets\Scripts\Core\Services\AchievementService.cs" />
+    <Compile Include="Assets\Scripts\Core\Managers\MainMenuController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\Data\AchievementIcon.cs" />
     <Compile Include="Assets\Scripts\UI\StatRowView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Assets\Scripts\Data\AchievementDefinition.cs" />
     <Compile Include="Assets\Scripts\UI\AnswerButtonView.cs" />
     <Compile Include="Assets\Scripts\Core\Services\LifeService.cs" />
+    <Compile Include="Assets\Scripts\UI\AchievementCardView.cs" />
     <Compile Include="Assets\Scripts\Gameplay\QuizQuestion.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Data\CareerClub.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Scripts\UI\AchievementsView.cs" />
     <Compile Include="Assets\Scripts\UI\CareerPathView.cs" />
     <Compile Include="Assets\Scripts\Core\Save\SaveService.cs" />
     <Compile Include="Assets\Scripts\Core\Save\PlayerAchievementsSaveData.cs" />

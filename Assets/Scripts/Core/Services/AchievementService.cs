@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class AchievementService
@@ -40,24 +42,45 @@ public class AchievementService
 
     public void CheckAchievements(AchievementType type)
     {
-        Debug.Log("Achievements checked 2");
-
         foreach (var achievement in AchievementDatabase.All)
         {
-            Debug.Log(
-    $"{achievement.Name} | Type: {achievement.Type} | Target: {achievement.Target}");
-            Debug.Log("Correct Answers: " + _playerStatistics.CorrectAnswers);
             if (achievement.Type != type)
                 continue;
             if (_playerAchievements.IsUnlocked(achievement.Id))
                 continue;
             if (MeetsRequirement(achievement))
             {
-                Debug.Log("Achievements meets requirement");
-
                 Unlock(achievement);
             }
         }
+    }
+
+    public int GetCurrentProgress(AchievementDefinition achievement)
+    {
+        switch(achievement.Type)
+        {
+            case AchievementType.CorrectAnswers:
+                return _playerStatistics.CorrectAnswers;
+            case AchievementType.WrongAnswers:
+                return _playerStatistics.WrongAnswers;
+            case AchievementType.QuestionsAnswered:
+                return _playerStatistics.QuestionsAnswered;
+            case AchievementType.LongestStreak:
+                return _playerStatistics.LongestStreak;
+            case AchievementType.CurrentLevel:
+                return _playerProgress.CurrentLevel;
+            case AchievementType.CoinsEarned:
+                return _playerProgress.Coins;
+            case AchievementType.HintsUsed:
+                return _playerStatistics.HintsUsed;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public IReadOnlyList<AchievementDefinition> GetAchievements()
+    {
+        return AchievementDatabase.All;
     }
 
     private bool MeetsRequirement(AchievementDefinition achievement)

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private ProfileView _profileView;
+    [SerializeField] private AchievementsView _achievementsView;
 
     public void PlayGame()
     {
@@ -15,5 +16,12 @@ public class MainMenuController : MonoBehaviour
         _profileView.Show(
             GameManager.Instance.Progress,
             GameManager.Instance.Statistics);
+    }
+
+    public void OpenAchievements()
+    {
+        _achievementsView.Show(
+            GameManager.Instance.AchievementService,
+            GameManager.Instance.Achievements);
     }
 }
