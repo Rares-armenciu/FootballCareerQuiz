@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\UI\HeaderView.cs" />
     <Compile Include="Assets\Scripts\Database\PlayerDatabase.cs" />
     <Compile Include="Assets\Scripts\Core\Save\PlayerProgressSaveData.cs" />
+    <Compile Include="Assets\Scripts\UI\Theme.cs" />
     <Compile Include="Assets\Scripts\Gameplay\QuizGenerator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
