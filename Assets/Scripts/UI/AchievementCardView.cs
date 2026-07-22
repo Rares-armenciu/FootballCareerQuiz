@@ -5,39 +5,54 @@ using UnityEngine.UI;
 
 public class AchievementCardView : MonoBehaviour
 {
-    [SerializeField] private Image icon;
-    [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text descriptionText;
-
-    [SerializeField] private Image rewardIcon;
+    [Header("Text")]
+    [SerializeField] private TMP_Text achievementName;
+    [SerializeField] private TMP_Text description;
     [SerializeField] private TMP_Text rewardText;
-    [SerializeField] private TMP_Text progressText;
+    [SerializeField] private TMP_Text statusText;
 
-    public void Show(
-        string name,
-        string description,
-        int reward,
-        int current,
-        int target)
+    [Header("Progress")]
+    [SerializeField] private Image progressFill;
+
+    [Header("Icons")]
+    [SerializeField] private Image achievementIcon;
+    [SerializeField] private Image rewardIcon;
+
+    public void Setup(
+            string title,
+            string descriptionText,
+            int rewardCoins,
+            int currentProgress,
+            int targetProgress,
+            Sprite icon = null)
     {
-        nameText.text = name;
-        descriptionText.text = description;
-        rewardText.text = reward.ToString();
-        progressText.text = $"{current} / {target}";
-    }
+        achievementName.text = title;
+        description.text = descriptionText;
+        rewardText.text = rewardCoins + " Coins";
 
-    public void Show(AchievementDefinition achievement, PlayerAchievements playerAchievements, int achievementProgress)
-    {
-        nameText.text = achievement.Name;
-        descriptionText.text = achievement.Description;
-        rewardText.text = achievement.RewardCoins.ToString();
+        currentProgress = Mathf.Clamp(currentProgress, 0, targetProgress);
 
-        progressText.text = playerAchievements.IsUnlocked(achievement.Id)
-            ? "Completed"
-            : $"{achievementProgress} / {achievement.Target}";
+        if (targetProgress > 0)
+        {
+            float progress = (float)currentProgress / targetProgress;
+            progressFill.fillAmount = progress;
 
-        // We'll assign the correct sprite later.
-        // icon.sprite = ...
-        // rewardIcon.sprite = ...
+            if(currentProgress >= targetProgress)
+            {
+                statusText.text = "Completed!";
+            }
+            else
+            {
+                statusText.text = currentProgress + " / " + targetProgress;
+            }
+        }
+        else
+        {
+            progressFill.fillAmount = 0f;
+            statusText.text = "";
+        }
+
+        if (icon != null)
+            achievementIcon.sprite = icon;
     }
 }

@@ -3,8 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private ProfileView _profileView;
-    [SerializeField] private AchievementsView _achievementsView;
+    [SerializeField] 
+    private ProfileView _profileView;
+    
+    [SerializeField] 
+    private AchievementsView _achievementsView;
+    
+    [SerializeField]
+    private HeaderView headerView;
+
+    private void Start()
+    {
+        headerView.Show(GameManager.Instance.Progress);
+    }
 
     public void PlayGame()
     {

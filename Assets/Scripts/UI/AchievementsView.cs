@@ -29,7 +29,13 @@ public class AchievementsView : MonoBehaviour
             AchievementCardView card =
                 Instantiate(cardPrefab, content);
 
-            card.Show(achievement, playerAchievements, achievementService.GetCurrentProgress(achievement));
+            card.Setup(
+                title: achievement.Name,
+                descriptionText: achievement.Description,
+                rewardCoins: achievement.RewardCoins,
+                currentProgress: achievementService.GetCurrentProgress(achievement),
+                targetProgress: achievement.Target
+            );
         }
     }
 }

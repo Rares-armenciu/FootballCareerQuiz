@@ -14,6 +14,9 @@ public class HeaderView : MonoBehaviour
         livesText.text = session.Lives.ToString();
 
         // Temporary
-        levelText.text = "Level 1";
+        if(levelText != null)
+        {
+            levelText.text = "Level 1";
+        }
     }
 }
