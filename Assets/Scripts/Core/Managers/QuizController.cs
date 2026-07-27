@@ -11,9 +11,6 @@ public class QuizController : MonoBehaviour
     [SerializeField]
     private AnswerPanelView answerPanelView;
 
-    [SerializeField]
-    private Button hintButton;
-
     [SerializeField] 
     private HeaderView headerView;
 
@@ -36,9 +33,17 @@ public class QuizController : MonoBehaviour
             GameManager.Instance.AchievementService);
 
         NextQuestion();
-        hintButton.onClick.AddListener(OnHintClicked);
         gameOverView.Hide();
         GameManager.Instance.AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
+    }
+
+    public void RevealHint()
+    {
+        if(_quizSession.RevealHint())
+        {
+            RefreshHeader();
+            careerPathView.ShowQuestion(_currentQuestion);
+        }
     }
 
     private void NextQuestion()
@@ -94,8 +99,7 @@ public class QuizController : MonoBehaviour
     {
         if (_quizSession.RevealHint())
         {
-            RefreshHeader();
-            careerPathView.ShowQuestion(_currentQuestion);
+
         }
     }
 
@@ -109,7 +113,6 @@ public class QuizController : MonoBehaviour
         if (GameManager.Instance.Progress.Lives <= 0)
         {
             DisableAnswers();
-            hintButton.interactable = false;
 
             gameOverView.Show(GameManager.Instance.Progress, GameManager.Instance.LifeService);
         }

@@ -34,16 +34,10 @@ public class QuizSession
         if (!CurrentQuestion.CanRevealClub)
             return false;
 
-        if (!_coinsService.SpendCoins(50))
-        {
-            return false;
-        }
-
-        _achievementsService.CheckAchievements(AchievementType.HintsUsed);
-
         CurrentQuestion.RevealRandomClub();
         _statisticsService.UseHint();
-        Debug.Log("Hint revealed");
+        
+        _achievementsService.CheckAchievements(AchievementType.HintsUsed);
 
         return true;
     }
