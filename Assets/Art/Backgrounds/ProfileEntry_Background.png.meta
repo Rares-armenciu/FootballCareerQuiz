@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 25e9bb2611bd7ed4697a5a461a2fcc72
+guid: 69c3f58e327e8f54daa646281bc90293
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4520107990956609124
-    second: PrimaryButton_Highlighted_0
+      213: 4854476085154976819
+    second: ProfileEntry_Background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,12 +126,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PrimaryButton_Highlighted_0
+      name: ProfileEntry_Background_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 430
+        width: 804
         height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9170a41bb95541c0800000000000000
-      internalID: -4520107990956609124
+      spriteID: 3349a4287409e5340800000000000000
+      internalID: 4854476085154976819
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PrimaryButton_Highlighted_0: -4520107990956609124
+      ProfileEntry_Background_0: 4854476085154976819
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

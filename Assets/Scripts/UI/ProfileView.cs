@@ -14,19 +14,19 @@ public class ProfileView : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        _levelRow.Set("Level", progress.CurrentLevel.ToString());
-        _coinsRow.Set("Coins", progress.Coins.ToString("N0"));
+        _levelRow.Set("Current Level", progress.CurrentLevel.ToString());
+        _coinsRow.Set("Available Coins", progress.Coins.ToString("N0"));
 
         _questionsRow.Set(
-            "Questions",
+            "Questions Answered",
             statistics.QuestionsAnswered.ToString());
 
         _correctRow.Set(
-            "Correct",
+            "Correct Answers",
             statistics.CorrectAnswers.ToString());
 
         _accuracyRow.Set(
-            "Accuracy",
+            "Answer Accuracy",
             $"{statistics.AccuracyPercentage.ToString():F1}%");
 
         _longestStreakRow.Set(

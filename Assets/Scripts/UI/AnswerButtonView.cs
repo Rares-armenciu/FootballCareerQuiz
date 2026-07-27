@@ -37,12 +37,12 @@ public class AnswerButtonView : MonoBehaviour
 
     public void SetCorrect()
     {
-        background.color = Color.green;
+        background.color = new Color32(106, 219, 111, 118);
     }
 
     public void SetWrong()
     {
-        background.color = Color.red;
+        background.color = new Color32(197, 81, 81, 118);
     }
 
     public void ResetColor()

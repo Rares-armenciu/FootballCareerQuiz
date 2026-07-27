@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 25e9bb2611bd7ed4697a5a461a2fcc72
+guid: c1ab1b773465bac43a23f8c2b244e4e3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4520107990956609124
-    second: PrimaryButton_Highlighted_0
+      213: -3065819215650273801
+    second: Panel_Background_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PrimaryButton_Highlighted_0
+      name: Panel_Background_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 430
-        height: 99
+        width: 940
+        height: 1410
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9170a41bb95541c0800000000000000
-      internalID: -4520107990956609124
+      spriteID: 7f54991baa50475d0800000000000000
+      internalID: -3065819215650273801
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PrimaryButton_Highlighted_0: -4520107990956609124
+      Panel_Background_0: -3065819215650273801
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

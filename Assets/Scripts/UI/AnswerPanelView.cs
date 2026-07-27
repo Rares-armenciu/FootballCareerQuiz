@@ -14,10 +14,13 @@ public class AnswerPanelView : MonoBehaviour
         }
     }
 
-    public void SetInteractable(bool interactable)
+    public void SetInteractable(bool interactable, AnswerButtonView button = null)
     {
         foreach (var answer in answerViews)
         {
+            if (button != null && answer == button)
+                continue;
+
             answer.SetInteractable(interactable);
             answer.ResetColor();
         }

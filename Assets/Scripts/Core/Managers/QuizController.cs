@@ -79,14 +79,15 @@ public class QuizController : MonoBehaviour
 
         RefreshHeader();
 
-        DisableAnswers();
+        DisableAnswers(button);
+        CheckGameOver();
 
         Invoke(nameof(NextQuestion), 1.5f);
     }
 
-    private void DisableAnswers()
+    private void DisableAnswers(AnswerButtonView button = null)
     {
-        answerPanelView.SetInteractable(false);
+        answerPanelView.SetInteractable(false, button);
     }
 
     private void OnHintClicked()
@@ -101,7 +102,6 @@ public class QuizController : MonoBehaviour
     private void RefreshHeader()
     {
         headerView.Show(GameManager.Instance.Progress);
-        CheckGameOver();
     }
 
     private void CheckGameOver()
