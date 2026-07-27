@@ -8,8 +8,17 @@ public class HintController : MonoBehaviour
     [SerializeField] private Button hintButton;
     [SerializeField] private HintPanelView hintPanel;
 
-    private const int HintPrice = 100;
+    private const int OriginalHintPrice = 100;
+    private const int PriceIncreasePerHint = 50;
+    private int CurrentHintPrice;
 
+    private void Start()
+    {
+        hintPanel.Hide();
+        CurrentHintPrice = OriginalHintPrice;
+        quizController.UIRefreshed += () => RefreshButton();
+        quizController.NewQuestionShown += () => CurrentHintPrice = OriginalHintPrice;
+    }
     private void Awake()
     {
         hintButton.onClick.AddListener(OpenHintPanel);
@@ -20,19 +29,20 @@ public class HintController : MonoBehaviour
 
     private void OpenHintPanel()
     {
-        bool canAfford = GameManager.Instance.CoinsService.CanAfford(HintPrice);
+        bool canAfford = GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice);
 
-        hintPanel.Show(HintPrice, canAfford);
+        hintPanel.Show(CurrentHintPrice, canAfford);
     }
 
     private void BuyHint()
     {
-        if(!GameManager.Instance.CoinsService.CanAfford(HintPrice))
+        if(!GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice))
         {
             return;
         }
 
-        GameManager.Instance.CoinsService.SpendCoins(HintPrice);
+        GameManager.Instance.CoinsService.SpendCoins(CurrentHintPrice);
+        CurrentHintPrice += PriceIncreasePerHint;
         quizController.RevealHint();
         hintPanel.Hide();
     }
@@ -49,5 +59,10 @@ public class HintController : MonoBehaviour
         });
 
         // We'll connect this to AdManager.
+    }
+
+    private void RefreshButton()
+    {
+        hintButton.interactable = GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice) || adManager.IsRewardedAdAvailable();
     }
 }

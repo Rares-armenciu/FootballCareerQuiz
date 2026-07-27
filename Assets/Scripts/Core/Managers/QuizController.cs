@@ -1,4 +1,5 @@
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,8 @@ public class QuizController : MonoBehaviour
 
     private QuizQuestion _currentQuestion;
     private QuizSession _quizSession;
+    public event Action UIRefreshed;
+    public event Action NewQuestionShown;
 
     private void Start()
     {
@@ -43,6 +46,7 @@ public class QuizController : MonoBehaviour
         {
             RefreshHeader();
             careerPathView.ShowQuestion(_currentQuestion);
+            GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics, GameManager.Instance.Achievements);
         }
     }
 
@@ -50,6 +54,7 @@ public class QuizController : MonoBehaviour
     {
         _currentQuestion = _quizSession.NextQuestion();
 
+        NewQuestionShown?.Invoke();
         RefreshUI();
     }
 
@@ -58,6 +63,7 @@ public class QuizController : MonoBehaviour
         RefreshAnswers();
         ShowQuestion();
         RefreshHeader();
+        UIRefreshed?.Invoke();
     }
 
     private void ShowQuestion()
