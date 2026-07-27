@@ -46,8 +46,15 @@ public class QuizController : MonoBehaviour
         {
             RefreshHeader();
             careerPathView.ShowQuestion(_currentQuestion);
+            UIRefreshed?.Invoke();
+
             GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics, GameManager.Instance.Achievements);
         }
+    }
+
+    public bool CanRevealHint()
+    {
+        return _currentQuestion != null && _currentQuestion.CanRevealClub;
     }
 
     private void NextQuestion()

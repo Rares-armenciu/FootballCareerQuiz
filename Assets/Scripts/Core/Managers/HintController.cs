@@ -16,6 +16,7 @@ public class HintController : MonoBehaviour
     {
         hintPanel.Hide();
         CurrentHintPrice = OriginalHintPrice;
+        RefreshButton();
         quizController.UIRefreshed += () => RefreshButton();
         quizController.NewQuestionShown += () => CurrentHintPrice = OriginalHintPrice;
     }
@@ -31,7 +32,7 @@ public class HintController : MonoBehaviour
     {
         bool canAfford = GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice);
 
-        hintPanel.Show(CurrentHintPrice, canAfford);
+        hintPanel.Show(CurrentHintPrice, canAfford, adManager.IsRewardedAdAvailable());
     }
 
     private void BuyHint()
@@ -63,6 +64,9 @@ public class HintController : MonoBehaviour
 
     private void RefreshButton()
     {
-        hintButton.interactable = GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice) || adManager.IsRewardedAdAvailable();
+        // Button is enabled only when a hint can actually be revealed and
+        // the player either can afford it or a rewarded ad is available.
+        bool hasFundingOption = GameManager.Instance.CoinsService.CanAfford(CurrentHintPrice) || adManager.IsRewardedAdAvailable();
+        hintButton.interactable = quizController.CanRevealHint() && hasFundingOption;
     }
 }

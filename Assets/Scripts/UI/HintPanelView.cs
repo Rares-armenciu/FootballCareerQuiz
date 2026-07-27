@@ -24,12 +24,13 @@ public class HintPanelView : MonoBehaviour
         backButton.onClick.AddListener(Hide);
     }
 
-    public void Show(int price, bool canAfford)
+    public void Show(int price, bool canAfford, bool canShowAd)
     {
         gameObject.SetActive(true);
 
         spendCoinsText.text = $"{price} COINS";
         spendCoinsButton.interactable = canAfford;
+        watchAdButton.interactable = canShowAd;
     }
 
     public void Hide()
