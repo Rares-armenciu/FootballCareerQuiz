@@ -39,6 +39,10 @@ public class QuizController : MonoBehaviour
             GameManager.Instance.StatisticsService,
             GameManager.Instance.AchievementService);
 
+        GameManager.Instance.AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
+        levelCompleteView.ContinueButton.onClick.AddListener(CompleteLevel);
+        gameOverView.Hide();
+
         if (GameManager.Instance.ProgressionService.IsCurrentLevelCompleted)
         {
             ShowLevelComplete();
@@ -46,9 +50,6 @@ public class QuizController : MonoBehaviour
         }
 
         NextQuestion();
-        gameOverView.Hide();
-        GameManager.Instance.AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
-        levelCompleteView.ContinueButton.onClick.AddListener(CompleteLevel);
     }
 
     private void ShowLevelComplete()
@@ -148,6 +149,8 @@ public class QuizController : MonoBehaviour
         Debug.Log("Completing level: " + GameManager.Instance.ProgressionService.CurrentLevel);
         GameManager.Instance.ProgressionService.CompleteLevel();
         
+        LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
+        GameManager.Instance.ProgressionService.SaveLevelResult(result);
         GameManager.Instance.CoinsService.GrantCoins(GameManager.Instance.ProgressionService.GetCurrentLevelResult().FinalReward);
 
         GameManager.Instance.SaveService.Save(

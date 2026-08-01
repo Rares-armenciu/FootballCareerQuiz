@@ -46,18 +46,6 @@ namespace Assets.Scripts.UI.LevelComplete
                 yield return null;
             }
 
-
-            //while (current < reward)
-            //{
-            //    current += Mathf.CeilToInt(reward * Time.deltaTime * 4f);
-
-            //    current = Mathf.Min(current, reward);
-
-            //    rewardText.text = current.ToString();
-
-            //    yield return new WaitForSeconds(.02f);
-            //}
-
             yield return StartCoroutine(CelebrateReward());
 
             yield return new WaitForSeconds(.25f);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerProgress
@@ -12,6 +13,7 @@ public class PlayerProgress
     public int CorrectAnswersThisLevel { get; set; }
     public int WrongAnswersThisLevel { get; set; }
     public int HintsUsedThisLevel { get; set; }
+    public List<LevelProgress> Levels { get; set; } = new();
 
     public void Restore(PlayerProgressSaveData saveData)
     {
@@ -25,6 +27,12 @@ public class PlayerProgress
         CorrectAnswersThisLevel = saveData.CorrectAnswersThisLevel;
         WrongAnswersThisLevel = saveData.WrongAnswersThisLevel;
         HintsUsedThisLevel = saveData.HintsUsedThisLevel;
+        
+        if(saveData.Levels != null)
+        {
+            Levels.Clear();
+            Levels.AddRange(saveData.Levels);
+        }
     }
 
     public PlayerProgressSaveData ToSaveData()
@@ -38,7 +46,25 @@ public class PlayerProgress
             NextLifeTime = NextLifeTime.ToString("O"),
             CorrectAnswersThisLevel = CorrectAnswersThisLevel,
             WrongAnswersThisLevel = WrongAnswersThisLevel,
-            HintsUsedThisLevel = HintsUsedThisLevel
+            HintsUsedThisLevel = HintsUsedThisLevel,
+            Levels = Levels
         };
+    }
+
+    public LevelProgress GetLevelProgress(int level)
+    {
+        LevelProgress progress = Levels.Find(l => l.Level == level);
+
+        if (progress != null)
+            return progress;
+
+        progress = new LevelProgress
+        {
+            Level = level
+        };
+
+        Levels.Add(progress);
+
+        return progress;
     }
 }

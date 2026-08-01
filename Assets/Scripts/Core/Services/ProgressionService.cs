@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class ProgressionService
 {
     private const int QuestionsPerLevel = 5;
@@ -61,5 +63,31 @@ public class ProgressionService
             _playerProgress.CorrectAnswersThisLevel,
             _playerProgress.WrongAnswersThisLevel,
             _playerProgress.HintsUsedThisLevel);
+    }
+
+    public void SaveLevelResult(LevelResult result)
+    {
+        LevelProgress progress =
+            _playerProgress.GetLevelProgress(result.Level);
+
+        progress.BestStars =
+            Mathf.Max(progress.BestStars, result.Stars);
+
+        progress.BestReward =
+            Mathf.Max(progress.BestReward, result.FinalReward);
+    }
+
+    public int GetBestStars(int level)
+    {
+        return _playerProgress
+            .GetLevelProgress(level)
+            .BestStars;
+    }
+
+    public bool IsLevelCompleted(int level)
+    {
+        return _playerProgress
+            .GetLevelProgress(level)
+            .Completed;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class PlayerProgressSaveData
@@ -11,4 +12,5 @@ public class PlayerProgressSaveData
     public int CorrectAnswersThisLevel;
     public int WrongAnswersThisLevel;
     public int HintsUsedThisLevel;
+    public List<LevelProgress> Levels = new();
 }
