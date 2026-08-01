@@ -50,6 +50,7 @@ public class AchievementPopupView : MonoBehaviour
 
     public void Enqueue(AchievementDefinition achievement)
     {
+        Debug.Log("Enqueue called");
         _achievementsQueue.Enqueue(achievement);
 
         if (!_isShowing)
@@ -58,6 +59,7 @@ public class AchievementPopupView : MonoBehaviour
 
     private void ShowNext()
     {
+        Debug.Log("Achievement popup show");
         if (_achievementsQueue.Count == 0)
         {
             _isShowing = false;

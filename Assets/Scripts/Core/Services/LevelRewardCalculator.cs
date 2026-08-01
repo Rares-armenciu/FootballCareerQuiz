@@ -37,6 +37,7 @@ public class LevelRewardCalculator
             + flawlessBonus;
 
         reward = Mathf.Max(reward, MinimumReward);
+        var stars = CalculateStars(wrongAnswers, hintsUsed, reward);
 
         return new LevelResult(
             level,
@@ -48,7 +49,8 @@ public class LevelRewardCalculator
             wrongPenalty,
             hintPenalty,
             flawlessBonus,
-            reward);
+            reward,
+            stars);
     }
 
     private int CalculateHintPenalty(int hintsUsed)
@@ -60,5 +62,19 @@ public class LevelRewardCalculator
             return YellowCardPenalty;
 
         return 0;
+    }
+
+    private int CalculateStars(int wrongAnswers, int hintsUsed, int reward)
+    {
+        if (reward >= 100)
+            return 5;
+        else if (reward >= 75)
+            return 4;
+        else if (reward >= 55)
+            return 3;
+        else if (reward >= 35)
+            return 2;
+        else
+            return 1;
     }
 }

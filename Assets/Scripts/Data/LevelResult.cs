@@ -1,18 +1,18 @@
+using UnityEngine;
+
 public class LevelResult
 {
     public int Level { get; }
     public int TotalQuestions { get; }
-
     public int CorrectAnswers { get; }
     public int WrongAnswers { get; }
     public int HintsUsed { get; }
-
     public int BaseReward { get; }
     public int WrongAnswerPenalty { get; }
     public int HintPenalty { get; }
     public int FlawlessBonus { get; }
-
     public int FinalReward { get; }
+    public int Stars { get; }
 
     public bool IsFlawless =>
         WrongAnswers == 0 && HintsUsed == 0;
@@ -27,20 +27,19 @@ public class LevelResult
         int wrongAnswerPenalty,
         int hintPenalty,
         int flawlessBonus,
-        int finalReward)
+        int finalReward,
+        int stars)
     {
         Level = level;
         TotalQuestions = totalQuestions;
-
         CorrectAnswers = correctAnswers;
         WrongAnswers = wrongAnswers;
         HintsUsed = hintsUsed;
-
         BaseReward = baseReward;
         WrongAnswerPenalty = wrongAnswerPenalty;
         HintPenalty = hintPenalty;
         FlawlessBonus = flawlessBonus;
-
         FinalReward = finalReward;
+        Stars = stars;
     }
 }

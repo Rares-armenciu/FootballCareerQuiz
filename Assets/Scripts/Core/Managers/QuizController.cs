@@ -1,4 +1,5 @@
 
+using Assets.Scripts.UI.LevelComplete;
 using System;
 using TMPro;
 using UnityEngine;
@@ -144,6 +145,7 @@ public class QuizController : MonoBehaviour
 
     private void CompleteLevel()
     {
+        Debug.Log("Completing level: " + GameManager.Instance.ProgressionService.CurrentLevel);
         GameManager.Instance.ProgressionService.CompleteLevel();
         
         GameManager.Instance.CoinsService.GrantCoins(GameManager.Instance.ProgressionService.GetCurrentLevelResult().FinalReward);

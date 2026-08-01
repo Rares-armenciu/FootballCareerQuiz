@@ -197,6 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 274950518}
+  - {fileID: 1111997231}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &274950517
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
   _profileView: {fileID: 1151297512}
   _achievementsView: {fileID: 610136325}
-  headerView: {fileID: 1709154521}
+  headerView: {fileID: 1111997232}
 --- !u!1 &343536152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,6 +2049,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052979732}
   m_CullTransparentMesh: 1
+--- !u!1 &1111997230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1111997231}
+  - component: {fileID: 1111997232}
+  m_Layer: 0
+  m_Name: HeaderView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1111997231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111997230}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 823.04114, y: 1116.6995, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 94686806}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111997232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111997230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc934ec2d1a9984382b239ca6c27e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeaderView
+  coinsText: {fileID: 1709154519}
+  livesText: {fileID: 1709154518}
+  levelText: {fileID: 0}
 --- !u!1001 &1123521898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3645,10 +3693,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 655581907319631578, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ac4fd13bcdf76154ea25a5c80cbce993, type: 3}
     - target: {fileID: 1228387838691955401, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_Name
       value: Header
@@ -3712,14 +3756,6 @@ PrefabInstance:
     - target: {fileID: 3704185540003262058, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7357851897648317184, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-      propertyPath: m_PreferredWidth
-      value: 82
-      objectReference: {fileID: 0}
-    - target: {fileID: 7357851897648317184, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-      propertyPath: m_PreferredHeight
-      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 7800034849667663231, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3854,10 +3890,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8805441013789474972, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 82
-      objectReference: {fileID: 0}
-    - target: {fileID: 8805441013789474972, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3868,10 +3900,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1228387838691955401, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1709154521}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
 --- !u!224 &1709154517 stripped
 RectTransform:
@@ -3879,17 +3908,6 @@ RectTransform:
   m_PrefabInstance: {fileID: 1709154516}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1709154518 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1092981492823091488, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
-  m_PrefabInstance: {fileID: 1709154516}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &1709154519 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2780776944858465192, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
   m_PrefabInstance: {fileID: 1709154516}
@@ -3900,26 +3918,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &1709154520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1228387838691955401, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
+--- !u!114 &1709154519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1092981492823091488, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
   m_PrefabInstance: {fileID: 1709154516}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1709154521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709154520}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc934ec2d1a9984382b239ca6c27e35, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeaderView
-  coinsText: {fileID: 1709154518}
-  livesText: {fileID: 1709154519}
-  levelText: {fileID: 0}
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1813869827
 GameObject:
   m_ObjectHideFlags: 0
