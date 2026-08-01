@@ -18,6 +18,9 @@ public class QuizController : MonoBehaviour
     [SerializeField]
     private NoLivesView gameOverView;
 
+    [SerializeField]
+    private LevelCompleteView levelCompleteView;
+
     [SerializeField] 
     private AchievementPopupView _achievementPopup;
 
@@ -35,9 +38,21 @@ public class QuizController : MonoBehaviour
             GameManager.Instance.StatisticsService,
             GameManager.Instance.AchievementService);
 
+        if (GameManager.Instance.ProgressionService.IsCurrentLevelCompleted)
+        {
+            ShowLevelComplete();
+            return;
+        }
+
         NextQuestion();
         gameOverView.Hide();
         GameManager.Instance.AchievementService.AchievementUnlocked += _achievementPopup.Enqueue;
+        levelCompleteView.ContinueButton.onClick.AddListener(CompleteLevel);
+    }
+
+    private void ShowLevelComplete()
+    {
+        levelCompleteView.Show(GameManager.Instance.ProgressionService.GetCurrentLevelResult());
     }
 
     public void RevealHint()
@@ -92,28 +107,60 @@ public class QuizController : MonoBehaviour
     private void OnAnswerClicked(AnswerButtonView button)
     {
         bool correct = _quizSession.SubmitAnswer(button.Player);
-        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics, GameManager.Instance.Achievements);
-        answerPanelView.ShowAnswerResult(button, correct, _currentQuestion.CorrectIndex);
+
+        answerPanelView.ShowAnswerResult(
+            button,
+            correct,
+            _currentQuestion.CorrectIndex);
 
         RefreshHeader();
-
         DisableAnswers(button);
-        CheckGameOver();
 
+        bool levelCompleted =
+            GameManager.Instance.ProgressionService.AdvanceQuestion();
+
+        GameManager.Instance.SaveService.Save(
+            GameManager.Instance.Progress,
+            GameManager.Instance.Statistics,
+            GameManager.Instance.Achievements);
+
+        // Player answered the final question of the level.
+        if (levelCompleted)
+        {
+            Invoke(nameof(ShowLevelComplete), 1.5f);
+            return;
+        }
+
+        // Player ran out of lives.
+        if (GameManager.Instance.Progress.Lives <= 0)
+        {
+            CheckGameOver();
+            return;
+        }
+
+        // Normal next question.
         Invoke(nameof(NextQuestion), 1.5f);
+    }
+
+    private void CompleteLevel()
+    {
+        GameManager.Instance.ProgressionService.CompleteLevel();
+        
+        GameManager.Instance.CoinsService.GrantCoins(GameManager.Instance.ProgressionService.GetCurrentLevelResult().FinalReward);
+
+        GameManager.Instance.SaveService.Save(
+            GameManager.Instance.Progress,
+            GameManager.Instance.Statistics,
+            GameManager.Instance.Achievements);
+
+        levelCompleteView.Hide();
+
+        NextQuestion();
     }
 
     private void DisableAnswers(AnswerButtonView button = null)
     {
         answerPanelView.SetInteractable(false, button);
-    }
-
-    private void OnHintClicked()
-    {
-        if (_quizSession.RevealHint())
-        {
-
-        }
     }
 
     private void RefreshHeader()

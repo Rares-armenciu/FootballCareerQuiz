@@ -7,29 +7,10 @@ public class SaveService
 
     public void Save(PlayerProgress progress, PlayerStatistics statistics, PlayerAchievements achievements)
     {
-        PlayerProgressSaveData progressData =
-            new PlayerProgressSaveData
-            {
-                Coins = progress.Coins,
-                Lives = progress.Lives,
-                CurrentLevel = progress.CurrentLevel,
-                NextLifeTime = progress.NextLifeTime.ToString("O")
-            };
-
-        PlayerStatisticsSaveData statsData =
-            new PlayerStatisticsSaveData
-            {
-                QuestionsAnswered = statistics.QuestionsAnswered,
-                CorrectAnswers = statistics.CorrectAnswers,
-                WrongAnswers = statistics.WrongAnswers,
-                HintsUsed = statistics.HintsUsed,
-                LongestStreak = statistics.LongestStreak
-            };
-
         SaveData saveData = new SaveData
         {
-            Progress = progressData,
-            Statistics = statsData,
+            Progress = progress.ToSaveData(),
+            Statistics = statistics.ToSaveData(),
             Achievements = achievements.ToSaveData()
         };
 
@@ -53,11 +34,7 @@ public class SaveService
 
         PlayerProgress progress = new PlayerProgress();
 
-        progress.Restore(
-            data.Progress.Coins,
-            data.Progress.Lives,
-            data.Progress.CurrentLevel,
-            DateTime.Parse(data.Progress.NextLifeTime));
+        progress.Restore(data.Progress);
 
         PlayerStatistics statistics = new PlayerStatistics();
 

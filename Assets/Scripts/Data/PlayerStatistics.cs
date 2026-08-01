@@ -56,4 +56,16 @@ public class PlayerStatistics
     {
         HintsUsed++;
     }
+
+    public PlayerStatisticsSaveData ToSaveData()
+    {
+        return new PlayerStatisticsSaveData
+        {
+            QuestionsAnswered = QuestionsAnswered,
+            CorrectAnswers = CorrectAnswers,
+            WrongAnswers = WrongAnswers,
+            HintsUsed = HintsUsed,
+            LongestStreak = LongestStreak
+        };
+    }
 }

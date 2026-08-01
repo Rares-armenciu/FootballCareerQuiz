@@ -113,7 +113,7 @@ public class AchievementService
     {
         _playerAchievements.Unlock(achievement.Id);
 
-        _coinsService.AddCoins(achievement.RewardCoins);
+        _coinsService.GrantCoins(achievement.RewardCoins);
 
         AchievementUnlocked?.Invoke(achievement);
 

@@ -36,7 +36,8 @@ public class QuizSession
 
         CurrentQuestion.RevealRandomClub();
         _statisticsService.UseHint();
-        
+        _progressionService.RecordHintUsed();
+
         _achievementsService.CheckAchievements(AchievementType.HintsUsed);
 
         return true;
@@ -48,15 +49,16 @@ public class QuizSession
 
         if (correct)
         {
-            _coinsService.AddCoins(25);
-            _progressionService.LevelUp();
             _statisticsService.RecordCorrectAnswer();
+            _progressionService.RecordCorrectAnswer();
             Debug.Log("Correct Answer recorded");
         }
         else
         {
             _lifeService.SpendLife();
+
             _statisticsService.RecordWrongAnswer();
+            _progressionService.RecordWrongAnswer();
             Debug.Log("Wrong Answer recorded");
         }
 

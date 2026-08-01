@@ -16,7 +16,7 @@ public class HeaderView : MonoBehaviour
         // Temporary
         if(levelText != null)
         {
-            levelText.text = "Level 1";
+            levelText.text = $"Level {GameManager.Instance.Progress.CurrentLevel}";
         }
     }
 }

@@ -9,7 +9,7 @@ public class CoinsService
         _playerProgress = playerProgress;
     }
 
-    public void AddCoins(int amount)
+    public void GrantCoins(int amount)
     {
         _playerProgress.Coins += amount;
     }
