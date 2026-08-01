@@ -3,6 +3,7 @@ using Assets.Scripts.UI.LevelComplete;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuizController : MonoBehaviour
@@ -43,7 +44,7 @@ public class QuizController : MonoBehaviour
         levelCompleteView.ContinueButton.onClick.AddListener(CompleteLevel);
         gameOverView.Hide();
 
-        if (GameManager.Instance.ProgressionService.IsCurrentLevelCompleted)
+        if (!GameManager.Instance.ProgressionService.IsReplay && GameManager.Instance.ProgressionService.IsCurrentLevelCompleted)
         {
             ShowLevelComplete();
             return;
@@ -146,11 +147,17 @@ public class QuizController : MonoBehaviour
 
     private void CompleteLevel()
     {
-        Debug.Log("Completing level: " + GameManager.Instance.ProgressionService.CurrentLevel);
-        GameManager.Instance.ProgressionService.CompleteLevel();
-        
+        if (GameManager.Instance.ProgressionService.IsReplay)
+        {
+            CompleteReplay();
+
+            return;
+        }
+
         LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
-        GameManager.Instance.ProgressionService.SaveLevelResult(result);
+        GameManager.Instance.ProgressionService.SaveLevelProgress(result);
+        GameManager.Instance.ProgressionService.CompleteLevel();
+
         GameManager.Instance.CoinsService.GrantCoins(GameManager.Instance.ProgressionService.GetCurrentLevelResult().FinalReward);
 
         GameManager.Instance.SaveService.Save(
@@ -193,5 +200,18 @@ public class QuizController : MonoBehaviour
         GameManager.Instance.LifeService.LivesChanged -= RefreshHeader;
         if (GameManager.Instance.AchievementService != null)
             GameManager.Instance.AchievementService.AchievementUnlocked -= _achievementPopup.Enqueue;
+    }
+
+    private void CompleteReplay()
+    {
+        LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
+
+        GameManager.Instance.ProgressionService.SaveLevelProgress(result);
+
+        GameManager.Instance.CoinsService.GrantCoins(result.FinalReward);
+
+        GameManager.Instance.ProgressionService.FinishReplay();
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

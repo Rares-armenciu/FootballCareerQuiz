@@ -22,9 +22,6 @@ namespace Assets.Scripts.UI.LevelComplete
         {
             rewardText.text = "0";
 
-            int current = 0;
-
-
             float duration = .7f;
 
             float t = 0;

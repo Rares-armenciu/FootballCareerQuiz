@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressionService
@@ -8,20 +9,27 @@ public class ProgressionService
 
     private readonly LevelRewardCalculator _rewardCalculator = new();
 
+    private int? replayLevel;
+
     public bool IsCurrentLevelCompleted => _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
 
     public ProgressionService(PlayerProgress playerProgress)
     {
         _playerProgress = playerProgress;
-
+        replayLevel = null;
         GetCurrentLevelResult();
     }
-
-    public int CurrentLevel => _playerProgress.CurrentLevel;
 
     public int CurrentQuestion => _playerProgress.CurrentQuestion;
 
     public int QuestionsInCurrentLevel => QuestionsPerLevel;
+
+    public bool IsReplay => replayLevel.HasValue;
+
+    public int ActiveLevel => replayLevel ?? _playerProgress.CurrentLevel;
+
+    public int HighestUnlockedLevel =>
+    _playerProgress.CurrentLevel + 1;
 
     public bool AdvanceQuestion()
     {
@@ -55,26 +63,24 @@ public class ProgressionService
         _playerProgress.HintsUsedThisLevel++;
     }
 
+    public void StartReplay(int level)
+    {
+        replayLevel = level;
+    }
+
+    public void FinishReplay()
+    {
+        replayLevel = null;
+    }
+
     public LevelResult GetCurrentLevelResult()
     {
         return _rewardCalculator.Calculate(
-            _playerProgress.CurrentLevel,
+            ActiveLevel,
             QuestionsInCurrentLevel,
             _playerProgress.CorrectAnswersThisLevel,
             _playerProgress.WrongAnswersThisLevel,
             _playerProgress.HintsUsedThisLevel);
-    }
-
-    public void SaveLevelResult(LevelResult result)
-    {
-        LevelProgress progress =
-            _playerProgress.GetLevelProgress(result.Level);
-
-        progress.BestStars =
-            Mathf.Max(progress.BestStars, result.Stars);
-
-        progress.BestReward =
-            Mathf.Max(progress.BestReward, result.FinalReward);
     }
 
     public int GetBestStars(int level)
@@ -88,6 +94,35 @@ public class ProgressionService
     {
         return _playerProgress
             .GetLevelProgress(level)
-            .Completed;
+            .IsUnlocked;
+    }
+
+    public IReadOnlyList<LevelProgress> GetLevels()
+    {
+        List<LevelProgress> levels = new();
+
+        for (int i = 0; i <= HighestUnlockedLevel; i++)
+        {
+            LevelProgress progress =
+                _playerProgress.GetLevelProgress(i);
+
+            progress.IsUnlocked = i <= HighestUnlockedLevel;
+
+            levels.Add(progress);
+        }
+
+        return levels;
+    }
+
+    public void SaveLevelProgress(LevelResult result)
+    {
+        LevelProgress progress =
+            _playerProgress.GetLevelProgress(result.Level);
+
+        progress.BestStars =
+            Mathf.Max(progress.BestStars, result.Stars);
+        progress.TotalQuestions = result.TotalQuestions;
+        progress.CorrectAnswers = result.CorrectAnswers;
+        progress.BestReward = Mathf.Max(progress.BestReward, result.FinalReward);
     }
 }

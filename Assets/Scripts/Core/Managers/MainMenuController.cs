@@ -8,7 +8,10 @@ public class MainMenuController : MonoBehaviour
     
     [SerializeField] 
     private AchievementsView _achievementsView;
-    
+
+    [SerializeField]
+    private LevelsPopupView levelsPopup;
+
     [SerializeField]
     private HeaderView headerView;
 
@@ -34,5 +37,27 @@ public class MainMenuController : MonoBehaviour
         _achievementsView.Show(
             GameManager.Instance.AchievementService,
             GameManager.Instance.Achievements);
+    }
+
+    public void OpenLevels()
+    {
+        levelsPopup.Show(GameManager.Instance.ProgressionService.GetLevels());
+    }
+
+    private void Awake()
+    {
+        levelsPopup.LevelSelected += OnLevelSelected;
+    }
+
+    private void OnDestroy()
+    {
+        levelsPopup.LevelSelected -= OnLevelSelected;
+    }
+
+    private void OnLevelSelected(int level)
+    {
+        GameManager.Instance.ProgressionService.StartReplay(level);
+
+        SceneManager.LoadScene("Gameplay");
     }
 }
