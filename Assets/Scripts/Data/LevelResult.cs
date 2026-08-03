@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class LevelResult
 {
     public int Level { get; }

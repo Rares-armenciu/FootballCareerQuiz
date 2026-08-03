@@ -1,19 +1,15 @@
+using Assets.Scripts.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressionService
 {
-    private const int QuestionsPerLevel = 5;
-
     private readonly PlayerProgress _playerProgress;
 
     private readonly LevelRewardCalculator _rewardCalculator = new();
 
     private int? replayLevel;
-
-    public bool IsCurrentLevelCompleted => _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
-
-    public LevelDefinition CurrentLevelDefinition => GameManager.Instance.LevelDatabase.Get(ActiveLevel);
 
     public ProgressionService(PlayerProgress playerProgress)
     {
@@ -22,22 +18,25 @@ public class ProgressionService
         GetCurrentLevelResult();
     }
 
+    public bool IsCurrentLevelCompleted => _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
+
+    public LevelDefinition CurrentLevelDefinition => GameManager.Instance.LevelDatabase.Get(ActiveLevel);
+
     public int CurrentQuestion => _playerProgress.CurrentQuestion;
 
-    public int QuestionsInCurrentLevel => QuestionsPerLevel;
+    public int QuestionsInCurrentLevel => CurrentLevelDefinition.QuestionCount;
 
     public bool IsReplay => replayLevel.HasValue;
 
     public int ActiveLevel => replayLevel ?? _playerProgress.CurrentLevel;
 
-    public int HighestUnlockedLevel =>
-    _playerProgress.CurrentLevel + 1;
+    public int HighestUnlockedLevel => _playerProgress.CurrentLevel;
 
     public bool AdvanceQuestion()
     {
         _playerProgress.CurrentQuestion++;
 
-        return _playerProgress.CurrentQuestion >= QuestionsPerLevel;
+        return _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
     }
 
     public void CompleteLevel()
@@ -78,8 +77,7 @@ public class ProgressionService
     public LevelResult GetCurrentLevelResult()
     {
         return _rewardCalculator.Calculate(
-            ActiveLevel,
-            QuestionsInCurrentLevel,
+            CurrentLevelDefinition,
             _playerProgress.CorrectAnswersThisLevel,
             _playerProgress.WrongAnswersThisLevel,
             _playerProgress.HintsUsedThisLevel);
@@ -94,26 +92,32 @@ public class ProgressionService
 
     public bool IsLevelCompleted(int level)
     {
-        return _playerProgress
-            .GetLevelProgress(level)
-            .IsUnlocked;
+        return _playerProgress.GetLevelProgress(level).Level <= HighestUnlockedLevel;
     }
 
-    public IReadOnlyList<LevelProgress> GetLevels()
+    public IEnumerable<LevelInfo> GetLevels()
     {
         List<LevelProgress> levels = new();
 
-        for (int i = 0; i <= HighestUnlockedLevel-1; i++)
+        foreach (LevelDefinition definition in GameManager.Instance.LevelDatabase.AllLevels)
         {
             LevelProgress progress =
-                _playerProgress.GetLevelProgress(i);
+                    _playerProgress.GetLevelProgress(
+                        definition.Level);
 
-            progress.IsUnlocked = i <= HighestUnlockedLevel;
-
-            levels.Add(progress);
+            yield return new LevelInfo
+            {
+                Level = definition.Level,
+                IsBossLevel = definition.IsBossLevel,
+                QuestionCount = definition.QuestionCount,
+                BestStars = progress.BestStars,
+                BestReward = progress.BestReward,
+                IsUnlocked = definition.Level <= HighestUnlockedLevel,
+                IsCurrent = definition.Level == ActiveLevel,
+                BestCorrectAnswers = progress.BestCorrectAnswers,
+                
+            };
         }
-
-        return levels;
     }
 
     public void SaveLevelProgress(LevelResult result)
@@ -123,8 +127,7 @@ public class ProgressionService
 
         progress.BestStars =
             Mathf.Max(progress.BestStars, result.Stars);
-        progress.TotalQuestions = result.TotalQuestions;
-        progress.CorrectAnswers = result.CorrectAnswers;
+        progress.BestCorrectAnswers = result.CorrectAnswers;
         progress.BestReward = Mathf.Max(progress.BestReward, result.FinalReward);
     }
 }

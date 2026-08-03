@@ -207,7 +207,7 @@ public class QuizController : MonoBehaviour
         LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
 
         GameManager.Instance.ProgressionService.SaveLevelProgress(result);
-
+        //int reward = GameManager.Instance.ProgressionService.CalculateCoinsToAward(result);
         GameManager.Instance.CoinsService.GrantCoins(result.FinalReward);
 
         GameManager.Instance.ProgressionService.FinishReplay();

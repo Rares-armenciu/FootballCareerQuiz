@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\UI\AnswerPanelView.cs" />
     <Compile Include="Assets\Scripts\Data\PlayerStatistics.cs" />
     <Compile Include="Assets\Scripts\Data\PlayerProgress.cs" />
+    <Compile Include="Assets\Scripts\Data\LevelInfo.cs" />
     <Compile Include="Assets\Scripts\UI\LevelComplete\RewardView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\UI\ClubEntryView.cs" />

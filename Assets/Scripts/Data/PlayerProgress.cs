@@ -7,7 +7,7 @@ public class PlayerProgress
     public const int MaxLives = 5;
     public int Coins { get; set; }
     public int Lives { get; set; } =  MaxLives;
-    public int CurrentLevel { get; set; }
+    public int CurrentLevel { get; set; } = 1;
     public int CurrentQuestion { get; set; } = 0;
     public DateTime NextLifeTime { get; set; }
     public int CorrectAnswersThisLevel { get; set; }

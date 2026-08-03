@@ -9,9 +9,5 @@ public class LevelProgress
 
     public int BestReward;
 
-    public bool IsUnlocked;
-
-    public int TotalQuestions;
-
-    public int CorrectAnswers;
+    public int BestCorrectAnswers;
 }

@@ -9,8 +9,14 @@ public class LevelDatabase : ScriptableObject
 
     public LevelDefinition Get(int level)
     {
-        return levels.Find(l => l.Level == level);
+        LevelDefinition definition =
+            levels.Find(l => l.Level == level);
+
+        if (definition == null)
+            Debug.LogError($"Level {level} not found in LevelDatabase.");
+
+        return definition;
     }
 
-    public IReadOnlyList<LevelDefinition> Levels => levels;
+    public IReadOnlyList<LevelDefinition> AllLevels => levels;
 }

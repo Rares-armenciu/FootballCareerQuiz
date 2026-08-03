@@ -1,17 +1,19 @@
-﻿using System;
+﻿using Assets.Scripts.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelsPopupView : MonoBehaviour
 {
-    [SerializeField] private Transform content;
+    [SerializeField] private RectTransform content;
     [SerializeField] private LevelEntryView prefab;
 
     private readonly List<LevelEntryView> entries = new();
 
     public event Action<int> LevelSelected;
 
-    public void Show(IEnumerable<LevelProgress> levels)
+    public void Show(IEnumerable<LevelInfo> levels)
     {
         gameObject.SetActive(true);
 
@@ -30,6 +32,12 @@ public class LevelsPopupView : MonoBehaviour
 
             entries.Add(view);
         }
+
+        Canvas.ForceUpdateCanvases();
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+
+        Canvas.ForceUpdateCanvases();
     }
 
     public void Hide()
