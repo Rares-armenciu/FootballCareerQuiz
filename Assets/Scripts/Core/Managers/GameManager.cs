@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private LevelDatabase levelDatabase;
+
+    public LevelDatabase LevelDatabase => levelDatabase;
+
     public static GameManager Instance { get; private set; }
 
     public PlayerDatabase PlayerDatabase { get; private set; }

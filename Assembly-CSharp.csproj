@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\UI\LevelComplete\LevelCompleteView.cs" />
     <Compile Include="Assets\Scripts\Core\Managers\HintController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\Database\LevelDatabase.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets\Scripts\Core\Services\ProgressionService.cs" />
     <Compile Include="Assets\Scripts\Data\AchievementDefinition.cs" />
     <Compile Include="Assets\Scripts\UI\AnswerButtonView.cs" />
+    <Compile Include="Assets\Scripts\Data\LevelDefinition.cs" />
     <Compile Include="Assets\Scripts\Core\Services\LifeService.cs" />
     <Compile Include="Assets\Scripts\UI\Achievements\AchievementsView.cs" />
     <Compile Include="Assets\Scripts\Core\Services\LevelRewardCalculator.cs" />

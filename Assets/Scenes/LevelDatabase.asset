@@ -1,0 +1,365 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43af7984bb61a8141bedbb29247ba780, type: 3}
+  m_Name: LevelDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::LevelDatabase
+  levels:
+  - Level: 1
+    QuestionCount: 5
+    BaseReward: 100
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 25
+    IsBossLevel: 0
+  - Level: 2
+    QuestionCount: 5
+    BaseReward: 100
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 25
+    IsBossLevel: 0
+  - Level: 3
+    QuestionCount: 5
+    BaseReward: 100
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 25
+    IsBossLevel: 0
+  - Level: 4
+    QuestionCount: 5
+    BaseReward: 100
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 25
+    IsBossLevel: 0
+  - Level: 5
+    QuestionCount: 5
+    BaseReward: 125
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 50
+    IsBossLevel: 1
+  - Level: 6
+    QuestionCount: 6
+    BaseReward: 125
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 30
+    IsBossLevel: 0
+  - Level: 7
+    QuestionCount: 6
+    BaseReward: 125
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 30
+    IsBossLevel: 0
+  - Level: 8
+    QuestionCount: 6
+    BaseReward: 125
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 30
+    IsBossLevel: 0
+  - Level: 9
+    QuestionCount: 6
+    BaseReward: 125
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 30
+    IsBossLevel: 0
+  - Level: 10
+    QuestionCount: 6
+    BaseReward: 150
+    WrongAnswerPenalty: 10
+    HintPenalty: 10
+    FlawlessBonus: 60
+    IsBossLevel: 1
+  - Level: 11
+    QuestionCount: 7
+    BaseReward: 150
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 35
+    IsBossLevel: 0
+  - Level: 12
+    QuestionCount: 7
+    BaseReward: 150
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 35
+    IsBossLevel: 0
+  - Level: 13
+    QuestionCount: 7
+    BaseReward: 150
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 35
+    IsBossLevel: 0
+  - Level: 14
+    QuestionCount: 7
+    BaseReward: 150
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 35
+    IsBossLevel: 0
+  - Level: 15
+    QuestionCount: 7
+    BaseReward: 175
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 70
+    IsBossLevel: 1
+  - Level: 16
+    QuestionCount: 7
+    BaseReward: 175
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 40
+    IsBossLevel: 0
+  - Level: 17
+    QuestionCount: 7
+    BaseReward: 175
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 40
+    IsBossLevel: 0
+  - Level: 18
+    QuestionCount: 7
+    BaseReward: 175
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 40
+    IsBossLevel: 0
+  - Level: 19
+    QuestionCount: 7
+    BaseReward: 175
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 40
+    IsBossLevel: 0
+  - Level: 20
+    QuestionCount: 7
+    BaseReward: 200
+    WrongAnswerPenalty: 15
+    HintPenalty: 10
+    FlawlessBonus: 80
+    IsBossLevel: 1
+  - Level: 21
+    QuestionCount: 8
+    BaseReward: 200
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 45
+    IsBossLevel: 0
+  - Level: 22
+    QuestionCount: 8
+    BaseReward: 200
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 45
+    IsBossLevel: 0
+  - Level: 23
+    QuestionCount: 8
+    BaseReward: 200
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 45
+    IsBossLevel: 0
+  - Level: 24
+    QuestionCount: 8
+    BaseReward: 200
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 45
+    IsBossLevel: 0
+  - Level: 25
+    QuestionCount: 8
+    BaseReward: 225
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 90
+    IsBossLevel: 1
+  - Level: 26
+    QuestionCount: 8
+    BaseReward: 225
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 50
+    IsBossLevel: 0
+  - Level: 27
+    QuestionCount: 8
+    BaseReward: 225
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 50
+    IsBossLevel: 0
+  - Level: 28
+    QuestionCount: 8
+    BaseReward: 225
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 50
+    IsBossLevel: 0
+  - Level: 29
+    QuestionCount: 8
+    BaseReward: 225
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 50
+    IsBossLevel: 0
+  - Level: 30
+    QuestionCount: 8
+    BaseReward: 250
+    WrongAnswerPenalty: 20
+    HintPenalty: 15
+    FlawlessBonus: 100
+    IsBossLevel: 1
+  - Level: 31
+    QuestionCount: 9
+    BaseReward: 250
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 55
+    IsBossLevel: 0
+  - Level: 32
+    QuestionCount: 9
+    BaseReward: 250
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 55
+    IsBossLevel: 0
+  - Level: 33
+    QuestionCount: 9
+    BaseReward: 250
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 55
+    IsBossLevel: 0
+  - Level: 34
+    QuestionCount: 9
+    BaseReward: 250
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 55
+    IsBossLevel: 0
+  - Level: 35
+    QuestionCount: 9
+    BaseReward: 275
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 110
+    IsBossLevel: 1
+  - Level: 36
+    QuestionCount: 9
+    BaseReward: 275
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 60
+    IsBossLevel: 0
+  - Level: 37
+    QuestionCount: 9
+    BaseReward: 275
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 60
+    IsBossLevel: 0
+  - Level: 38
+    QuestionCount: 9
+    BaseReward: 275
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 60
+    IsBossLevel: 0
+  - Level: 39
+    QuestionCount: 9
+    BaseReward: 275
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 60
+    IsBossLevel: 0
+  - Level: 40
+    QuestionCount: 9
+    BaseReward: 300
+    WrongAnswerPenalty: 25
+    HintPenalty: 15
+    FlawlessBonus: 120
+    IsBossLevel: 1
+  - Level: 41
+    QuestionCount: 10
+    BaseReward: 300
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 65
+    IsBossLevel: 0
+  - Level: 42
+    QuestionCount: 10
+    BaseReward: 300
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 65
+    IsBossLevel: 0
+  - Level: 43
+    QuestionCount: 10
+    BaseReward: 300
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 65
+    IsBossLevel: 0
+  - Level: 44
+    QuestionCount: 10
+    BaseReward: 300
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 65
+    IsBossLevel: 0
+  - Level: 45
+    QuestionCount: 10
+    BaseReward: 325
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 130
+    IsBossLevel: 1
+  - Level: 46
+    QuestionCount: 10
+    BaseReward: 325
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 70
+    IsBossLevel: 0
+  - Level: 47
+    QuestionCount: 10
+    BaseReward: 325
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 70
+    IsBossLevel: 0
+  - Level: 48
+    QuestionCount: 10
+    BaseReward: 325
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 70
+    IsBossLevel: 0
+  - Level: 49
+    QuestionCount: 10
+    BaseReward: 325
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 70
+    IsBossLevel: 0
+  - Level: 50
+    QuestionCount: 10
+    BaseReward: 350
+    WrongAnswerPenalty: 30
+    HintPenalty: 20
+    FlawlessBonus: 140
+    IsBossLevel: 1

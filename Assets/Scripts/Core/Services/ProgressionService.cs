@@ -13,6 +13,8 @@ public class ProgressionService
 
     public bool IsCurrentLevelCompleted => _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
 
+    public LevelDefinition CurrentLevelDefinition => GameManager.Instance.LevelDatabase.Get(ActiveLevel);
+
     public ProgressionService(PlayerProgress playerProgress)
     {
         _playerProgress = playerProgress;
@@ -101,7 +103,7 @@ public class ProgressionService
     {
         List<LevelProgress> levels = new();
 
-        for (int i = 0; i <= HighestUnlockedLevel; i++)
+        for (int i = 0; i <= HighestUnlockedLevel-1; i++)
         {
             LevelProgress progress =
                 _playerProgress.GetLevelProgress(i);

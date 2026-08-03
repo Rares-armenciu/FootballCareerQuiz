@@ -16,28 +16,28 @@ public class LevelEntryView : MonoBehaviour
 
     private int level;
 
+    private void Awake()
+    {
+        button.onClick.AddListener(OnClicked);
+    }
+
     public void Show(LevelProgress progress)
     {
         Debug.Log(
     $"Level {progress.Level}  Stars: {progress.BestStars}  Unlocked: {progress.IsUnlocked}");
         level = progress.Level;
 
-        levelText.text = $"Level {progress.Level}";
+        levelText.text = $"Level {progress.Level + 1}";
 
         //button.interactable = progress.IsUnlocked;
         levelText.gameObject.SetActive(progress.IsUnlocked);
-        completedText.gameObject.SetActive(progress.IsUnlocked && progress.BestStars < 5);
-        completedText.text = $"Correct answers: {progress.CorrectAnswers}/{progress.TotalQuestions}";
+        completedText.gameObject.SetActive(progress.IsUnlocked);
+        completedText.text = $"{progress.CorrectAnswers} / {progress.TotalQuestions} Correct";
 
         for (int i = 0; i < stars.Length; i++)
         {
             stars[i].gameObject.SetActive(i < progress.BestStars);
         }
-    }
-
-    private void Awake()
-    {
-        //button.onClick.AddListener(OnClicked);
     }
 
     private void OnClicked()
