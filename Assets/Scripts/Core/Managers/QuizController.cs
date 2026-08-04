@@ -147,18 +147,17 @@ public class QuizController : MonoBehaviour
 
     private void CompleteLevel()
     {
-        if (GameManager.Instance.ProgressionService.IsReplay)
+        var progressionService = GameManager.Instance.ProgressionService;
+        if (progressionService.IsReplay)
         {
             CompleteReplay();
 
             return;
         }
 
-        LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
-        GameManager.Instance.ProgressionService.SaveLevelProgress(result);
-        GameManager.Instance.ProgressionService.CompleteLevel();
+        RecordProgress(progressionService, true);
 
-        GameManager.Instance.CoinsService.GrantCoins(GameManager.Instance.ProgressionService.GetCurrentLevelResult().FinalReward);
+        progressionService.AdvanceToNextLevel();
 
         GameManager.Instance.SaveService.Save(
             GameManager.Instance.Progress,
@@ -168,6 +167,28 @@ public class QuizController : MonoBehaviour
         levelCompleteView.Hide();
 
         NextQuestion();
+    }
+
+    private void RecordProgress(ProgressionService progressionService, bool firstCompletion)
+    {
+        LevelResult result = progressionService.GetCurrentLevelResult();
+
+        LevelProgress previous = GameManager.Instance.Progress.GetLevelProgress(result.Level);
+
+        // Record statistics based on the previous best state before we update persistent progress.
+        GameManager.Instance.StatisticsService.RecordLevelCompleted(previous, result, progressionService.CurrentLevelDefinition.IsBossLevel, firstCompletion);
+
+        // Calculate coin delta using the previous best reward, then persist the new best reward.
+        int coinsToAward = progressionService.CalculateCoinsToAward(result);
+
+        progressionService.SaveLevelProgress(result);
+
+        // Record and grant the coins that are actually awarded (the delta).
+        if (coinsToAward > 0)
+        {
+            GameManager.Instance.StatisticsService.RecordCoinsEarned(coinsToAward);
+            GameManager.Instance.CoinsService.GrantCoins(coinsToAward);
+        }
     }
 
     private void DisableAnswers(AnswerButtonView button = null)
@@ -204,13 +225,16 @@ public class QuizController : MonoBehaviour
 
     private void CompleteReplay()
     {
-        LevelResult result = GameManager.Instance.ProgressionService.GetCurrentLevelResult();
+        var progressionService = GameManager.Instance.ProgressionService;
 
-        GameManager.Instance.ProgressionService.SaveLevelProgress(result);
-        //int reward = GameManager.Instance.ProgressionService.CalculateCoinsToAward(result);
-        GameManager.Instance.CoinsService.GrantCoins(result.FinalReward);
+        RecordProgress(progressionService, false);
 
         GameManager.Instance.ProgressionService.FinishReplay();
+
+        // Persist progress and statistics after finishing a replay so awarded coins / stats are saved.
+        GameManager.Instance.SaveService.Save(GameManager.Instance.Progress,
+            GameManager.Instance.Statistics,
+            GameManager.Instance.Achievements);
 
         SceneManager.LoadScene("MainMenu");
     }

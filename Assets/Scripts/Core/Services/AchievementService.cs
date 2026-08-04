@@ -115,6 +115,12 @@ public class AchievementService
 
         _coinsService.GrantCoins(achievement.RewardCoins);
 
+        // Record the coins earned in statistics so "Coins Earned" aggregates include achievement rewards.
+        if (GameManager.Instance?.StatisticsService != null)
+        {
+            GameManager.Instance.StatisticsService.RecordCoinsEarned(achievement.RewardCoins);
+        }
+
         AchievementUnlocked?.Invoke(achievement);
 
         Debug.Log($"Achievement unlocked: {achievement.Name}");

@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Core\Services\StatisticsService.cs" />
     <Compile Include="Assets\Scripts\Core\Services\AchievementService.cs" />
     <Compile Include="Assets\Scripts\Core\Managers\MainMenuController.cs" />
+    <Compile Include="Assets\Scripts\Data\ProfileInfo.cs" />
     <Compile Include="Assets\Scripts\UI\LevelComplete\LevelCompleteView.cs" />
     <Compile Include="Assets\Scripts\Core\Managers\HintController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Data\AchievementIcon.cs" />
-    <Compile Include="Assets\Scripts\UI\StatRowView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Core\Services\ProgressionService.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\Core\Managers\AdManager.cs" />
     <Compile Include="Assets\Scripts\UI\HintPanelView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\Scripts\UI\ProfileRowView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Data\LevelProgress.cs" />

@@ -1,3 +1,5 @@
+using System;
+
 public class StatisticsService
 {
     private readonly PlayerStatistics _statistics;
@@ -27,6 +29,18 @@ public class StatisticsService
     {
         _statistics.UseHint();
 
+        _achievementService.CheckAchievements();
+    }
+
+    public void RecordLevelCompleted(LevelProgress previous, LevelResult result, bool isBossLevel, bool firstCompletion)
+    {
+        _statistics.RecordLevelCompleted(previous, result, isBossLevel, firstCompletion);
+        _achievementService.CheckAchievements();
+    }
+
+    internal void RecordCoinsEarned(int coins)
+    {
+        _statistics.RecordCoinsEarned(coins);
         _achievementService.CheckAchievements();
     }
 }

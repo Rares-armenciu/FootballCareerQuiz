@@ -13,10 +13,11 @@ public class HeaderView : MonoBehaviour
         coinsText.text = session.Coins.ToString();
         livesText.text = session.Lives.ToString();
 
-        // Temporary
-        if(levelText != null)
+        // Show the active level (replay override if set) so the header reflects the level being played.
+        if (levelText != null)
         {
-            levelText.text = $"Level {GameManager.Instance.Progress.CurrentLevel}";
+            int activeLevel = GameManager.Instance.ProgressionService.ActiveLevel;
+            levelText.text = $"Level {activeLevel}";
         }
     }
 }

@@ -55,7 +55,11 @@ namespace Assets.Scripts.UI.LevelComplete
             yield return stars.Play(result.Stars);
 
             reward.gameObject.SetActive(true);
-            yield return reward.Play(result.FinalReward);
+
+            // Display both the level's final reward and the actual coins that will be awarded
+            // (the delta between this run's final reward and the previous best).
+            int awardedCoins = GameManager.Instance.ProgressionService.CalculateCoinsToAward(result);
+            yield return reward.Play(result.FinalReward, awardedCoins);
 
             continueButton.gameObject.SetActive(true);
             continueButton.interactable = true;

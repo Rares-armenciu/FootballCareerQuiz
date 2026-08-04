@@ -38,12 +38,7 @@ public class SaveService
 
         PlayerStatistics statistics = new PlayerStatistics();
 
-        statistics.Restore(
-            data.Statistics.QuestionsAnswered,
-            data.Statistics.CorrectAnswers,
-            data.Statistics.WrongAnswers,
-            data.Statistics.HintsUsed,
-            data.Statistics.LongestStreak);
+        statistics.Restore(data.Statistics);
 
         PlayerAchievements achievements = new PlayerAchievements();
         achievements.Load(data.Achievements);

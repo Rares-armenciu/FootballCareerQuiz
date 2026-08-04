@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public class LevelEntryView : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LevelEntryView : MonoBehaviour
     [SerializeField] private Sprite disabledSprite;
 
     public event Action<int> Clicked;
+    public bool IsCurrent { get; private set; }
 
     private int level;
 
@@ -28,23 +30,25 @@ public class LevelEntryView : MonoBehaviour
         button.onClick.AddListener(OnClicked);
     }
 
-    public void Show(LevelInfo data)
+    public void Show(LevelInfo levelInfo)
     {
-        Debug.Log($"Level {data.Level}  Stars: {data.BestStars}  Unlocked: {data.IsUnlocked}");
+        Debug.Log($"Level {levelInfo.Level}  Stars: {levelInfo.BestStars}  Unlocked: {levelInfo.IsUnlocked}");
 
-        SetBackground(data);
-        level = data.Level;
-        levelText.text = $"Level {data.Level}";
-        currentBadge.SetActive(data.IsCurrent);
-        chevronIcon.gameObject.SetActive(data.IsUnlocked && !data.IsCurrent);
-        lockIcon.gameObject.SetActive(!data.IsUnlocked);
-        button.interactable = data.IsUnlocked && !data.IsCurrent;
-        SetSubtitle(data);
+        SetBackground(levelInfo);
+        level = levelInfo.Level;
+        levelText.text = $"Level {levelInfo.Level}";
+        currentBadge.SetActive(levelInfo.IsCurrent);
+        chevronIcon.gameObject.SetActive(levelInfo.IsUnlocked && !levelInfo.IsCurrent);
+        lockIcon.gameObject.SetActive(!levelInfo.IsUnlocked);
+        button.interactable = levelInfo.IsUnlocked && !levelInfo.IsCurrent;
+        SetSubtitle(levelInfo);
 
         for (int i = 0; i < stars.Length; i++)
         {
-            stars[i].gameObject.SetActive(i < data.BestStars);
+            stars[i].gameObject.SetActive(i < levelInfo.BestStars);
         }
+
+        IsCurrent = levelInfo.IsCurrent;
     }
 
     private void OnClicked()

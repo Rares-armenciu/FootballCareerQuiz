@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class StatRowView : MonoBehaviour
+public class ProfileRowView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _value;

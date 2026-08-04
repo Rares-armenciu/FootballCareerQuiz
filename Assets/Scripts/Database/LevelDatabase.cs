@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Football Quiz/Level Database")]
@@ -19,4 +20,8 @@ public class LevelDatabase : ScriptableObject
     }
 
     public IReadOnlyList<LevelDefinition> AllLevels => levels;
+
+    public int LevelCount => levels.Count;
+
+    public int BossLevelCount => levels.Count(l => l.IsBossLevel);
 }

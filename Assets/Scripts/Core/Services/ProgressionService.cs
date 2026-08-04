@@ -11,18 +11,28 @@ public class ProgressionService
 
     private int? replayLevel;
 
+    // Session-only counters used while replaying a level. These ensure PlayerProgress
+    // is not mutated during replay sessions and the real saved progress remains intact.
+    private int sessionCurrentQuestion;
+    private int sessionCorrectAnswersThisLevel;
+    private int sessionWrongAnswersThisLevel;
+    private int sessionHintsUsedThisLevel;
+
     public ProgressionService(PlayerProgress playerProgress)
     {
         _playerProgress = playerProgress;
         replayLevel = null;
-        GetCurrentLevelResult();
+        sessionCurrentQuestion = 0;
+        sessionCorrectAnswersThisLevel = 0;
+        sessionWrongAnswersThisLevel = 0;
+        sessionHintsUsedThisLevel = 0;
     }
 
-    public bool IsCurrentLevelCompleted => _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
+    public bool IsCurrentLevelCompleted => CurrentQuestion >= QuestionsInCurrentLevel;
 
     public LevelDefinition CurrentLevelDefinition => GameManager.Instance.LevelDatabase.Get(ActiveLevel);
 
-    public int CurrentQuestion => _playerProgress.CurrentQuestion;
+    public int CurrentQuestion => IsReplay ? sessionCurrentQuestion : _playerProgress.CurrentQuestion;
 
     public int QuestionsInCurrentLevel => CurrentLevelDefinition.QuestionCount;
 
@@ -34,12 +44,19 @@ public class ProgressionService
 
     public bool AdvanceQuestion()
     {
+        if (IsReplay)
+        {
+            sessionCurrentQuestion++;
+
+            return sessionCurrentQuestion >= QuestionsInCurrentLevel;
+        }
+
         _playerProgress.CurrentQuestion++;
 
         return _playerProgress.CurrentQuestion >= QuestionsInCurrentLevel;
     }
 
-    public void CompleteLevel()
+    public void AdvanceToNextLevel()
     {
         _playerProgress.CurrentLevel++;
         _playerProgress.CurrentQuestion = 0;
@@ -51,36 +68,63 @@ public class ProgressionService
 
     public void RecordCorrectAnswer()
     {
-        _playerProgress.CorrectAnswersThisLevel++;
+        if (IsReplay)
+            sessionCorrectAnswersThisLevel++;
+        else
+            _playerProgress.CorrectAnswersThisLevel++;
     }
 
     public void RecordWrongAnswer()
     {
-        _playerProgress.WrongAnswersThisLevel++;
+        if (IsReplay)
+            sessionWrongAnswersThisLevel++;
+        else
+            _playerProgress.WrongAnswersThisLevel++;
     }
 
     public void RecordHintUsed()
     {
-        _playerProgress.HintsUsedThisLevel++;
+        if (IsReplay)
+            sessionHintsUsedThisLevel++;
+        else
+            _playerProgress.HintsUsedThisLevel++;
     }
 
     public void StartReplay(int level)
     {
+        // Initialize session counters for the replay and set the active replay level.
+        // Do NOT mutate PlayerProgress so saved progress remains unchanged while replaying.
         replayLevel = level;
+
+        sessionCurrentQuestion = 0;
+        sessionCorrectAnswersThisLevel = 0;
+        sessionWrongAnswersThisLevel = 0;
+        sessionHintsUsedThisLevel = 0;
     }
 
     public void FinishReplay()
     {
         replayLevel = null;
+
+        // Clear session counters; PlayerProgress was never mutated for the replay.
+        sessionCurrentQuestion = 0;
+        sessionCorrectAnswersThisLevel = 0;
+        sessionWrongAnswersThisLevel = 0;
+        sessionHintsUsedThisLevel = 0;
     }
 
     public LevelResult GetCurrentLevelResult()
     {
+        // Use session counters when replaying, otherwise use player's persistent counters.
+        int correct = IsReplay ? sessionCorrectAnswersThisLevel : _playerProgress.CorrectAnswersThisLevel;
+        int wrong = IsReplay ? sessionWrongAnswersThisLevel : _playerProgress.WrongAnswersThisLevel;
+        int hints = IsReplay ? sessionHintsUsedThisLevel : _playerProgress.HintsUsedThisLevel;
+
         return _rewardCalculator.Calculate(
             CurrentLevelDefinition,
-            _playerProgress.CorrectAnswersThisLevel,
-            _playerProgress.WrongAnswersThisLevel,
-            _playerProgress.HintsUsedThisLevel);
+            correct,
+            wrong,
+            hints);
     }
 
     public int GetBestStars(int level)
@@ -122,12 +166,25 @@ public class ProgressionService
 
     public void SaveLevelProgress(LevelResult result)
     {
-        LevelProgress progress =
-            _playerProgress.GetLevelProgress(result.Level);
+        LevelProgress progress = _playerProgress.GetLevelProgress(result.Level);
 
-        progress.BestStars =
-            Mathf.Max(progress.BestStars, result.Stars);
-        progress.BestCorrectAnswers = result.CorrectAnswers;
+        progress.BestStars = Mathf.Max(progress.BestStars, result.Stars);
+        progress.BestCorrectAnswers = Mathf.Max(progress.BestCorrectAnswers, result.CorrectAnswers);
         progress.BestReward = Mathf.Max(progress.BestReward, result.FinalReward);
+    }
+
+    public int CalculateCoinsToAward(LevelResult result)
+    {
+        LevelProgress progress = _playerProgress.GetLevelProgress(result.Level);
+
+        return Mathf.Max(0, result.FinalReward - progress.BestReward);
+    }
+
+    public bool IsNewBestReward(LevelResult result)
+    {
+        return result.FinalReward >
+               _playerProgress
+                   .GetLevelProgress(result.Level)
+                   .BestReward;
     }
 }

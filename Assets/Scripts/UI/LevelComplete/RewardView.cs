@@ -18,10 +18,12 @@ namespace Assets.Scripts.UI.LevelComplete
         [SerializeField]
         private RectTransform coinIcon;
 
-        public IEnumerator Play(int reward)
+        // Now shows both the level's final reward and the actual awarded coins.
+        // finalReward: the computed final reward for the run
+        // awardedCoins: the delta that will be granted to the player (may be zero)
+        public IEnumerator Play(int finalReward, int awardedCoins)
         {
-            rewardText.text = "0";
-
+            // Animate the final reward value
             float duration = .7f;
 
             float t = 0;
@@ -32,20 +34,27 @@ namespace Assets.Scripts.UI.LevelComplete
 
                 float p = Mathf.SmoothStep(0f, 1f, t / duration);
 
-                int value =
-                    Mathf.RoundToInt(
-                        Mathf.Lerp(0,
-                                   reward,
-                                   p));
+                int value = Mathf.RoundToInt(Mathf.Lerp(0, finalReward, p));
 
-                rewardText.text = $"{value} Coins";
+                rewardText.text = $"Final Reward: {value} Coins\nAwarded: {FormatAward(awardedCoins)}";
 
                 yield return null;
             }
 
+            // Ensure final state
+            rewardText.text = $"Final Reward: {finalReward} Coins\nAwarded: {FormatAward(awardedCoins)}";
+
             yield return StartCoroutine(CelebrateReward());
 
             yield return new WaitForSeconds(.25f);
+        }
+
+        private string FormatAward(int awardedCoins)
+        {
+            if (awardedCoins <= 0)
+                return "0 Coins";
+
+            return $"+{awardedCoins} Coins";
         }
 
         private IEnumerator CelebrateReward()

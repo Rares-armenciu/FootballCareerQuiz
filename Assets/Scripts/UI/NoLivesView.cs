@@ -14,7 +14,9 @@ public class NoLivesView : MonoBehaviour
 
     public void Show(PlayerProgress progress, LifeService lifeService)
     {
-        levelText.text = $"Level {progress.CurrentLevel}";
+        // Show the active level (respect replay overrides) so the UI matches the session.
+        int activeLevel = GameManager.Instance.ProgressionService.ActiveLevel;
+        levelText.text = $"Level {activeLevel}";
         coinsText.text = $"{progress.Coins} Coins";
 
         panel.SetActive(true);
