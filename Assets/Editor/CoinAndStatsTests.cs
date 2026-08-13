@@ -130,6 +130,44 @@ public class CoinAndStatsTests
     }
 
     [Test]
+    public void PlayerStatistics_ReplayDoesNotIncrementFirstCompletionCounters()
+    {
+        var stats = new PlayerStatistics();
+        var previous = new LevelProgress { Level = 4, BestStars = 5 };
+        var result = new LevelResult(
+            level: 4,
+            totalQuestions: 5,
+            correctAnswers: 5,
+            wrongAnswers: 0,
+            hintsUsed: 0,
+            baseReward: 100,
+            wrongAnswerPenalty: 0,
+            hintPenalty: 0,
+            flawlessBonus: 0,
+            finalReward: 100,
+            stars: 5);
+
+        stats.RecordLevelCompleted(previous, result, isBossLevel: true, firstCompletion: false);
+
+        Assert.AreEqual(0, stats.LevelsCompleted);
+        Assert.AreEqual(0, stats.BossLevelsCompleted);
+        Assert.AreEqual(0, stats.PerfectLevelsCompleted);
+        Assert.AreEqual(0, stats.StarsEarned);
+    }
+
+    [Test]
+    public void PlayerStatistics_RecordCoinsEarned_IgnoresNonPositiveAmounts()
+    {
+        var stats = new PlayerStatistics();
+
+        stats.RecordCoinsEarned(50);
+        stats.RecordCoinsEarned(0);
+        stats.RecordCoinsEarned(-10);
+
+        Assert.AreEqual(50, stats.CoinsEarned);
+    }
+
+    [Test]
     public void AchievementService_Unlock_GrantsCoinsAndRecordsInStatistics()
     {
         // Arrange

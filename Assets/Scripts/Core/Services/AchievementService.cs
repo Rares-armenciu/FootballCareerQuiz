@@ -70,7 +70,7 @@ public class AchievementService
             case AchievementType.CurrentLevel:
                 return _playerProgress.CurrentLevel;
             case AchievementType.CoinsEarned:
-                return _playerProgress.Coins;
+                return _playerStatistics.CoinsEarned;
             case AchievementType.HintsUsed:
                 return _playerStatistics.HintsUsed;
             default:
@@ -100,7 +100,7 @@ public class AchievementService
                 _playerProgress.CurrentLevel >= achievement.Target,
 
             AchievementType.CoinsEarned =>
-                _playerProgress.Coins >= achievement.Target,
+                _playerStatistics.CoinsEarned >= achievement.Target,
 
             AchievementType.HintsUsed =>
                 _playerStatistics.HintsUsed >= achievement.Target,
@@ -115,11 +115,9 @@ public class AchievementService
 
         _coinsService.GrantCoins(achievement.RewardCoins);
 
-        // Record the coins earned in statistics so "Coins Earned" aggregates include achievement rewards.
-        if (GameManager.Instance?.StatisticsService != null)
-        {
-            GameManager.Instance.StatisticsService.RecordCoinsEarned(achievement.RewardCoins);
-        }
+        // Achievement rewards are lifetime earnings and must be included in
+        // CoinsEarned even when the service is used outside a live GameManager.
+        _playerStatistics.RecordCoinsEarned(achievement.RewardCoins);
 
         AchievementUnlocked?.Invoke(achievement);
 

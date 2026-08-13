@@ -1,12 +1,25 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeaderView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinsText;
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Button dailyRewardButton;
+    [SerializeField] private MainMenuController mainMenuController;
+
+    private void Awake()
+    {
+        dailyRewardButton.onClick.AddListener(ShowDailyReward);
+    }
+
+    private void OnDestroy()
+    {
+        dailyRewardButton.onClick.RemoveListener(ShowDailyReward);
+    }
 
     public void Show(PlayerProgress session)
     {
@@ -19,5 +32,15 @@ public class HeaderView : MonoBehaviour
             int activeLevel = GameManager.Instance.ProgressionService.ActiveLevel;
             levelText.text = $"Level {activeLevel}";
         }
+    }
+
+    public void ShowDailyReward()
+    {
+        if(mainMenuController == null)
+        {
+            return;
+        }
+
+        mainMenuController.OpenDailyReward();
     }
 }

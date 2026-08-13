@@ -15,9 +15,15 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private HeaderView headerView;
 
+    [SerializeField]
+    private DailyRewardView dailyRewardView;
+
     private void Start()
     {
         headerView.Show(GameManager.Instance.Progress);
+
+        if (CanClaimDailyReward())
+            OpenDailyReward();
     }
 
     public void PlayGame()
@@ -42,6 +48,66 @@ public class MainMenuController : MonoBehaviour
     public void OpenLevels()
     {
         levelsPopup.Show(GameManager.Instance.ProgressionService.GetLevels());
+    }
+
+    public bool CanClaimDailyReward()
+    {
+        return GameManager.Instance.DailyRewardService.CanClaim();
+    }
+
+    public int GetNextDailyReward()
+    {
+        int nextDay = Mathf.Clamp(GameManager.Instance.DailyRewardService.GetDisplayStreak() + 1, 1, 7);
+        return GameManager.Instance.DailyRewardService.GetRewardForDay(nextDay);
+    }
+
+    public void OpenDailyReward()
+    {
+        dailyRewardView.Show();
+    }
+
+    public void CloseDailyReward()
+    {
+        dailyRewardView.Hide();
+    }
+
+    public DailyRewardClaim ClaimDailyReward()
+    {
+        DailyRewardClaim claim = GameManager.Instance.DailyRewardService.Claim();
+
+        if (claim == null)
+            return null;
+
+        GameManager.Instance.SaveService.Save(
+            GameManager.Instance.Progress,
+            GameManager.Instance.Statistics,
+            GameManager.Instance.Achievements,
+            GameManager.Instance.DailyRewardService.Progress);
+
+        headerView.Show(GameManager.Instance.Progress);
+        return claim;
+    }
+
+    public bool CanClaimDailyRewardAdBonus()
+    {
+        return GameManager.Instance.DailyRewardService.CanClaimAdBonus();
+    }
+
+    public DailyRewardClaim ClaimDailyRewardAdBonus()
+    {
+        DailyRewardClaim claim = GameManager.Instance.DailyRewardService.ClaimAdBonus();
+
+        if (claim == null)
+            return null;
+
+        GameManager.Instance.SaveService.Save(
+            GameManager.Instance.Progress,
+            GameManager.Instance.Statistics,
+            GameManager.Instance.Achievements,
+            GameManager.Instance.DailyRewardService.Progress);
+
+        headerView.Show(GameManager.Instance.Progress);
+        return claim;
     }
 
     private void Awake()

@@ -5,13 +5,22 @@ public class SaveService
 {
     private const string PlayerProgressKey = "SaveData";
 
-    public void Save(PlayerProgress progress, PlayerStatistics statistics, PlayerAchievements achievements)
+    public void Save(
+        PlayerProgress progress,
+        PlayerStatistics statistics,
+        PlayerAchievements achievements,
+        DailyRewardProgress dailyReward)
     {
         SaveData saveData = new SaveData
         {
             Progress = progress.ToSaveData(),
             Statistics = statistics.ToSaveData(),
-            Achievements = achievements.ToSaveData()
+            Achievements = achievements.ToSaveData(),
+            DailyReward = new DailyRewardSaveData
+            {
+                LastClaimDateUtc = dailyReward.LastClaimDateUtc,
+                CurrentStreak = dailyReward.CurrentStreak
+            }
         };
 
         string json = JsonUtility.ToJson(saveData);
@@ -24,7 +33,11 @@ public class SaveService
     {
         if (!PlayerPrefs.HasKey(PlayerProgressKey))
         {
-            return new LoadData(new PlayerProgress(), new PlayerStatistics(), new PlayerAchievements());
+            return new LoadData(
+                new PlayerProgress(),
+                new PlayerStatistics(),
+                new PlayerAchievements(),
+                new DailyRewardProgress());
         }
 
         string json = PlayerPrefs.GetString(PlayerProgressKey);
@@ -43,6 +56,14 @@ public class SaveService
         PlayerAchievements achievements = new PlayerAchievements();
         achievements.Load(data.Achievements);
 
-        return new LoadData(progress, statistics, achievements);
+        DailyRewardProgress dailyReward = new DailyRewardProgress();
+
+        if (data.DailyReward != null)
+        {
+            dailyReward.LastClaimDateUtc = data.DailyReward.LastClaimDateUtc;
+            dailyReward.CurrentStreak = data.DailyReward.CurrentStreak;
+        }
+
+        return new LoadData(progress, statistics, achievements, dailyReward);
     }
 }

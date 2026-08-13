@@ -56,6 +56,9 @@ public class PlayerStatistics
 
     public void RecordCoinsEarned(int amount)
     {
+        if (amount <= 0)
+            return;
+
         CoinsEarned += amount;
     }
 

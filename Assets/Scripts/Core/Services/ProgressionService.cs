@@ -136,7 +136,7 @@ public class ProgressionService
 
     public bool IsLevelCompleted(int level)
     {
-        return _playerProgress.GetLevelProgress(level).Level <= HighestUnlockedLevel;
+        return _playerProgress.GetLevelProgress(level).BestStars > 0;
     }
 
     public IEnumerable<LevelInfo> GetLevels()
@@ -186,5 +186,10 @@ public class ProgressionService
                _playerProgress
                    .GetLevelProgress(result.Level)
                    .BestReward;
+    }
+
+    public LevelProgress GetLevelProgress(int level)
+    {
+        return _playerProgress.GetLevelProgress(level);
     }
 }

@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     public AchievementService AchievementService { get; private set; }
 
+    public DailyRewardService DailyRewardService { get; private set; }
+
     private void Awake()
     {
         if (Instance != null)
@@ -54,6 +56,10 @@ public class GameManager : MonoBehaviour
         ProgressionService = new ProgressionService(Progress);
         AchievementService = new AchievementService(Achievements, Progress, Statistics, CoinsService);
         StatisticsService = new StatisticsService(Statistics, AchievementService);
+        DailyRewardService = new DailyRewardService(
+            CoinsService,
+            loadData.DailyReward,
+            StatisticsService);
         StartCoroutine(RefreshLoop());
     }
 

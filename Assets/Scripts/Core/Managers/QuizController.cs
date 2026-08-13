@@ -66,7 +66,11 @@ public class QuizController : MonoBehaviour
             careerPathView.ShowQuestion(_currentQuestion);
             UIRefreshed?.Invoke();
 
-            GameManager.Instance.SaveService.Save(GameManager.Instance.Progress, GameManager.Instance.Statistics, GameManager.Instance.Achievements);
+            GameManager.Instance.SaveService.Save(
+                GameManager.Instance.Progress,
+                GameManager.Instance.Statistics,
+                GameManager.Instance.Achievements,
+                GameManager.Instance.DailyRewardService.Progress);
         }
     }
 
@@ -125,7 +129,8 @@ public class QuizController : MonoBehaviour
         GameManager.Instance.SaveService.Save(
             GameManager.Instance.Progress,
             GameManager.Instance.Statistics,
-            GameManager.Instance.Achievements);
+            GameManager.Instance.Achievements,
+            GameManager.Instance.DailyRewardService.Progress);
 
         // Player answered the final question of the level.
         if (levelCompleted)
@@ -155,39 +160,42 @@ public class QuizController : MonoBehaviour
             return;
         }
 
-        RecordProgress(progressionService, true);
+        RecordProgress(progressionService   );
 
         progressionService.AdvanceToNextLevel();
 
         GameManager.Instance.SaveService.Save(
             GameManager.Instance.Progress,
             GameManager.Instance.Statistics,
-            GameManager.Instance.Achievements);
+            GameManager.Instance.Achievements,
+            GameManager.Instance.DailyRewardService.Progress);
 
         levelCompleteView.Hide();
 
         NextQuestion();
     }
 
-    private void RecordProgress(ProgressionService progressionService, bool firstCompletion)
+    private void RecordProgress(ProgressionService progressionService)
     {
         LevelResult result = progressionService.GetCurrentLevelResult();
+        LevelProgress previous = progressionService.GetLevelProgress(result.Level);
 
-        LevelProgress previous = GameManager.Instance.Progress.GetLevelProgress(result.Level);
+        bool firstCompletion = previous.BestStars == 0;
 
-        // Record statistics based on the previous best state before we update persistent progress.
-        GameManager.Instance.StatisticsService.RecordLevelCompleted(previous, result, progressionService.CurrentLevelDefinition.IsBossLevel, firstCompletion);
+        GameManager.Instance.StatisticsService.RecordLevelCompleted(
+            previous,
+            result,
+            progressionService.CurrentLevelDefinition.IsBossLevel,
+            firstCompletion);
 
-        // Calculate coin delta using the previous best reward, then persist the new best reward.
-        int coinsToAward = progressionService.CalculateCoinsToAward(result);
+        int coinsAwarded = progressionService.CalculateCoinsToAward(result);
 
         progressionService.SaveLevelProgress(result);
 
-        // Record and grant the coins that are actually awarded (the delta).
-        if (coinsToAward > 0)
+        if (coinsAwarded > 0)
         {
-            GameManager.Instance.StatisticsService.RecordCoinsEarned(coinsToAward);
-            GameManager.Instance.CoinsService.GrantCoins(coinsToAward);
+            GameManager.Instance.StatisticsService.RecordCoinsEarned(coinsAwarded);
+            GameManager.Instance.CoinsService.GrantCoins(coinsAwarded);
         }
     }
 
@@ -227,14 +235,15 @@ public class QuizController : MonoBehaviour
     {
         var progressionService = GameManager.Instance.ProgressionService;
 
-        RecordProgress(progressionService, false);
+        RecordProgress(progressionService);
 
         GameManager.Instance.ProgressionService.FinishReplay();
 
         // Persist progress and statistics after finishing a replay so awarded coins / stats are saved.
         GameManager.Instance.SaveService.Save(GameManager.Instance.Progress,
             GameManager.Instance.Statistics,
-            GameManager.Instance.Achievements);
+            GameManager.Instance.Achievements,
+            GameManager.Instance.DailyRewardService.Progress);
 
         SceneManager.LoadScene("MainMenu");
     }
