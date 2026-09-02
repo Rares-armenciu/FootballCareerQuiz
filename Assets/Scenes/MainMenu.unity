@@ -1117,11 +1117,11 @@ RectTransform:
   - {fileID: 2093850546}
   m_Father: {fileID: 1999800765}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -600}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &343536154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,6 +1297,10 @@ PrefabInstance:
     - target: {fileID: 4639398807968387720, guid: 372ed429f4ee1d449a9daae840f849ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391532293422077951, guid: 372ed429f4ee1d449a9daae840f849ce, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5391532293422077951, guid: 372ed429f4ee1d449a9daae840f849ce, type: 3}
       propertyPath: m_PreferredWidth
@@ -6383,11 +6387,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8415011089759136949, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -200
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 8415011089759136949, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8415011089759136949, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6423,7 +6427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8415011089759136949, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -220
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8415011089759136949, guid: 75fddb888e878a64395d76ba3722ba95, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7765,8 +7769,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 516330361}
   - {fileID: 1709154517}
+  - {fileID: 516330361}
   - {fileID: 343536153}
   m_Father: {fileID: 946661877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

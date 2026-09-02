@@ -20,6 +20,13 @@ Recordings/
 *.user
 *.userprefs
 
+# Track hand-written project/solution files outside Unity's auto-generated ones
+!/*.slnx
+!/Tools/**/*.csproj
+
+# Ignore build output for hand-written tool projects
+[Bb]in/
+
 # Rider
 .idea/
 
