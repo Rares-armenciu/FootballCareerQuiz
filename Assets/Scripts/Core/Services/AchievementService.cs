@@ -10,25 +10,27 @@ public class AchievementService
     private readonly PlayerProgress _playerProgress;
     private readonly PlayerStatistics _playerStatistics;
     private readonly CoinsService _coinsService;
+    private readonly AchievementDatabase _achievementDatabase;
 
     public AchievementService(
         PlayerAchievements playerAchievements,
         PlayerProgress playerProgress,
         PlayerStatistics playerStatistics,
-        CoinsService coinsService)
+        CoinsService coinsService,
+        AchievementDatabase achievementDatabase)
     {
         _playerAchievements = playerAchievements;
         _playerProgress = playerProgress;
         _playerStatistics = playerStatistics;
         _coinsService = coinsService;
+        _achievementDatabase = achievementDatabase;
     }
 
     public event Action<AchievementDefinition> AchievementUnlocked;
 
     public void CheckAchievements()
     {
-        Debug.Log("Achievements checked 1");
-        foreach (var achievement in AchievementDatabase.All)
+        foreach (var achievement in _achievementDatabase.AllAchievements)
         {
             if (_playerAchievements.IsUnlocked(achievement.Id))
                 continue;
@@ -42,7 +44,7 @@ public class AchievementService
 
     public void CheckAchievements(AchievementType type)
     {
-        foreach (var achievement in AchievementDatabase.All)
+        foreach (var achievement in _achievementDatabase.AllAchievements)
         {
             if (achievement.Type != type)
                 continue;
@@ -65,7 +67,7 @@ public class AchievementService
                 return _playerStatistics.WrongAnswers;
             case AchievementType.QuestionsAnswered:
                 return _playerStatistics.QuestionsAnswered;
-            case AchievementType.LongestStreak:
+            case AchievementType.Streak:
                 return _playerStatistics.LongestStreak;
             case AchievementType.CurrentLevel:
                 return _playerProgress.CurrentLevel;
@@ -73,6 +75,8 @@ public class AchievementService
                 return _playerStatistics.CoinsEarned;
             case AchievementType.HintsUsed:
                 return _playerStatistics.HintsUsed;
+            case AchievementType.PerfectLevels:
+                return _playerStatistics.PerfectLevelsCompleted;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -80,7 +84,7 @@ public class AchievementService
 
     public IReadOnlyList<AchievementDefinition> GetAchievements()
     {
-        return AchievementDatabase.All;
+        return _achievementDatabase.AllAchievements;
     }
 
     private bool MeetsRequirement(AchievementDefinition achievement)
@@ -90,10 +94,13 @@ public class AchievementService
             AchievementType.CorrectAnswers =>
                 _playerStatistics.CorrectAnswers >= achievement.Target,
 
+            AchievementType.WrongAnswers =>
+                _playerStatistics.WrongAnswers >= achievement.Target,
+
             AchievementType.QuestionsAnswered =>
                 _playerStatistics.QuestionsAnswered >= achievement.Target,
 
-            AchievementType.LongestStreak =>
+            AchievementType.Streak =>
                 _playerStatistics.LongestStreak >= achievement.Target,
 
             AchievementType.CurrentLevel =>
@@ -104,6 +111,9 @@ public class AchievementService
 
             AchievementType.HintsUsed =>
                 _playerStatistics.HintsUsed >= achievement.Target,
+
+            AchievementType.PerfectLevels =>
+                _playerStatistics.PerfectLevelsCompleted >= achievement.Target,
 
             _ => false
         };

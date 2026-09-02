@@ -5,6 +5,7 @@ public enum AchievementType
     QuestionsAnswered,
     CoinsEarned,
     CurrentLevel,
-    LongestStreak,
-    HintsUsed
+    Streak,
+    HintsUsed,
+    PerfectLevels,
 }

@@ -87,7 +87,7 @@ public class CoinAndStatsTests
     {
         var stats = new PlayerStatistics();
         var playerAchievements = new PlayerAchievements();
-        var achievementService = new AchievementService(playerAchievements, new PlayerProgress(), stats, new CoinsService(new PlayerProgress()));
+        var achievementService = new AchievementService(playerAchievements, new PlayerProgress(), stats, new CoinsService(new PlayerProgress()), ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(stats, achievementService);
 
         statisticsService.RecordCorrectAnswer();
@@ -176,7 +176,7 @@ public class CoinAndStatsTests
         var playerAchievements = new PlayerAchievements();
         var coinsService = new CoinsService(playerProgress);
 
-        var achievementService = new AchievementService(playerAchievements, playerProgress, playerStats, coinsService);
+        var achievementService = new AchievementService(playerAchievements, playerProgress, playerStats, coinsService, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(playerStats, achievementService);
 
         // Create a GameManager object and set it as the static Instance via reflection
@@ -199,15 +199,16 @@ public class CoinAndStatsTests
         setStats.Invoke(gm, new object[] { statisticsService });
 
         // Act - unlock an achievement via reflection (Unlock is private)
-        var achievement = new AchievementDefinition(
-            id: "test.unlock",
-            name: "Test Unlock",
-            description: "Grants coins",
-            type: AchievementType.CoinsEarned,
-            target: 10,
-            rewardCoins: 123,
-            icon: AchievementIcon.Coins
-        );
+        var achievement = new AchievementDefinition
+        {
+            Id = "test.unlock",
+            Name = "Test Unlock",
+            Description = "Grants coins",
+            Type = AchievementType.CoinsEarned,
+            Target = 10,
+            RewardCoins = 123,
+            Icon = AchievementIcon.Coins
+        };
 
         var unlockMethod = typeof(AchievementService).GetMethod("Unlock", BindingFlags.NonPublic | BindingFlags.Instance);
         unlockMethod.Invoke(achievementService, new object[] { achievement });

@@ -1,28 +1,13 @@
+using System;
+
+[Serializable]
 public class AchievementDefinition
 {
-    public string Id { get; }
-    public string Name { get; }
-    public string Description { get; }
-    public AchievementType Type { get; }
-    public int Target { get; }
-    public int RewardCoins { get; }
-    public AchievementIcon Icon { get; }
-
-    public AchievementDefinition(
-        string id,
-        string name,
-        string description,
-        AchievementType type,
-        int target,
-        int rewardCoins,
-        AchievementIcon icon)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        Type = type;
-        Target = target;
-        RewardCoins = rewardCoins;
-        Icon = icon;
-    }
+    public string Id;
+    public string Name;
+    public string Description;
+    public AchievementType Type;
+    public int Target;
+    public int RewardCoins;
+    public AchievementIcon Icon;
 }

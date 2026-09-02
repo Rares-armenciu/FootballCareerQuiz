@@ -1,0 +1,12 @@
+# ninja log v5
+160	1365	8089653562743932	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	33d2d19e0be6463f
+1367	2181	8089653570823276	D:/Code/FootballCareerQuiz/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2tr2y6h3/obj/arm64-v8a/libswappywrapper.so	3e610314c2aaee50
+72	4643	8089653595657645	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	7d2a747597567cd5
+57	4668	8089653595946683	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	37a9a6872b664352
+18	4690	8089653596186171	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	27366e5bfe82bb26
+145	4699	8089653596284060	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	e35c32f16c57c7d5
+3	4767	8089653596924812	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	7fe48e1e1883e9c4
+44	5045	8089653599719220	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e027c303da72f670
+30	5230	8089653601614164	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e38b1ac194671153
+99	6103	8089653610342239	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	2d6ffd3c84a1b096
+6104	6242	8089653611745517	D:/Code/FootballCareerQuiz/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2tr2y6h3/obj/arm64-v8a/libgame.so	3315b45b8b1528bf

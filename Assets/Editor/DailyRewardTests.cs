@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using UnityEngine;
 
 public class DailyRewardTests
 {
@@ -10,7 +11,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var claimDate = new DateTime(2026, 1, 10, 12, 0, 0, DateTimeKind.Utc);
@@ -31,7 +32,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var firstDate = new DateTime(2026, 4, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -57,7 +58,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var firstDate = new DateTime(2026, 2, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -78,7 +79,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var firstDate = new DateTime(2026, 3, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -98,7 +99,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var claimDate = new DateTime(2026, 5, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -113,7 +114,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var claimDate = new DateTime(2026, 5, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -134,7 +135,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var claimDate = new DateTime(2026, 5, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -152,7 +153,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var claimDate = new DateTime(2026, 5, 1, 12, 0, 0, DateTimeKind.Utc);
@@ -170,7 +171,7 @@ public class DailyRewardTests
         var statistics = new PlayerStatistics();
         var achievements = new PlayerAchievements();
         var coins = new CoinsService(progress);
-        var achievementService = new AchievementService(achievements, progress, statistics, coins);
+        var achievementService = new AchievementService(achievements, progress, statistics, coins, ScriptableObject.CreateInstance<AchievementDatabase>());
         var statisticsService = new StatisticsService(statistics, achievementService);
         var service = new DailyRewardService(coins, new DailyRewardProgress(), statisticsService);
         var firstDate = new DateTime(2026, 5, 1, 12, 0, 0, DateTimeKind.Utc);

@@ -83,15 +83,6 @@ public class AchievementPopupView : MonoBehaviour
         _hideRoutine = StartCoroutine(ShowRoutine());
     }
 
-    private IEnumerator HideAfterSeconds()
-    {
-        yield return new WaitForSeconds(3f);
-
-        gameObject.SetActive(false);
-
-        ShowNext();
-    }
-
     private IEnumerator ShowRoutine()
     {
         yield return Animate(

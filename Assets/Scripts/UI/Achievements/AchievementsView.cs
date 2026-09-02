@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -6,6 +7,8 @@ public class AchievementsView : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private Transform content;
     [SerializeField] private AchievementCardView cardPrefab;
+    [SerializeField] private TMP_Text completionText;
+    [SerializeField] private AchievementIconSet iconSet;
 
     public void Show(AchievementService achievementService, PlayerAchievements playerAchievements)
     {
@@ -24,6 +27,9 @@ public class AchievementsView : MonoBehaviour
         foreach (Transform child in content)
             Destroy(child.gameObject);
 
+        int unlockedCount = 0;
+        int totalCount = 0;
+
         foreach (AchievementDefinition achievement in achievementService.GetAchievements())
         {
             AchievementCardView card =
@@ -34,8 +40,16 @@ public class AchievementsView : MonoBehaviour
                 descriptionText: achievement.Description,
                 rewardCoins: achievement.RewardCoins,
                 currentProgress: achievementService.GetCurrentProgress(achievement),
-                targetProgress: achievement.Target
+                targetProgress: achievement.Target,
+                icon: iconSet != null ? iconSet.Get(achievement.Icon) : null
             );
+
+            totalCount++;
+
+            if (playerAchievements.IsUnlocked(achievement.Id))
+                unlockedCount++;
         }
+
+        completionText.text = $"{unlockedCount}/{totalCount}";
     }
 }
